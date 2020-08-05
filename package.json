@@ -1,0 +1,29 @@
+{
+  "name": "ein-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-specifier-resolution=node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/study-system/EIN-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/study-system/EIN-server/issues"
+  },
+  "homepage": "https://github.com/study-system/EIN-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}
