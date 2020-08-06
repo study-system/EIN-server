@@ -1,7 +1,7 @@
 {
   "name": "ein-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "교육 정보 알리미 서버",
   "main": "src/app.js",
   "type": "module",
   "scripts": {
