@@ -6,19 +6,16 @@ import swaggerUi from 'swagger-ui-express';
 // https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md
 const swaggerDefinition = {
   info: { // API informations (required)
-    title: 'Hello World', // Title (required)
-    version: '1.0.0', // Version (required)
-    description: 'A sample API', // Description (optional)
+    title: '교육정보 알리미',
+    version: '1.0.0',
   },
-  host: 'localhost:3000', // Host (optional)
+  // host: 'myks790.iptime.org:8082',
   basePath: '/', // Base path (optional)
 };
 
 const options = {
-  // Import swaggerDefinitions
   swaggerDefinition,
-  // Path to the API docs
-  apis: ['./*.js', './../swagger/*.yaml'],
+  apis: ['./src/api/routes/*.js'],
 };
 const swaggerSpec = swaggerJSDoc(options);
 

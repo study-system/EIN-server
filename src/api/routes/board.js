@@ -1,46 +1,32 @@
 import express from 'express';
+/**
+ * @swagger
+ * tags:
+ *   name: board
+ *   summary: 게시판 관련
+ */
 
 const route = express.Router();
 
 export default (router) => {
-  router.use('/users', route);
+  router.use('/board', route);
   /**
  * @swagger
- * tags:
- *   name: Todo
- *   description: Todo management
- * definitions:
- *   Todo:
- *     type: object
- *     required:
- *       - content
- *     properties:
- *       _id:
- *         type: string
- *         description: ObjectID
- *       content:
- *         type: string
- *         description: 할일 내용
- *       done:
- *         type: boolean
- *         description: 완료 여부
- */
-  /**
- * @swagger
- * /todo:
+ * /board/testGet:
  *   get:
- *     summary: Returns Todo list
- *     tags: [Todo]
+ *     summary: user:'test' 값을 json으로 반환함
+ *     tags: [board]
+ *     produces:
+ *       - application/json
  *     responses:
  *       200:
- *         description: todo list
+ *         description: OK
  *         schema:
  *           type: object
  *           properties:
- *             todos:
- *               type: array
- *               items:
- *                 $ref: '#/definitions/Todo'
+ *             user:
+ *               type: string
+ *               example: test
  */
-  route.get('/test', (req, res) => res.json({ user: 'test' }).status(200));
+  route.get('/testGet', (req, res) => res.json({ user: 'test' }).status(200));
 };

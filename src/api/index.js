@@ -1,6 +1,6 @@
 import express from 'express';
 import board from './routes/board';
-import swagger from './routes/swagger';
+import swagger from './swagger';
 
 export default () => {
   const router = express.Router();
