@@ -1,4 +1,5 @@
 import express from 'express';
+import boardService from '../../services/boardService';
 /**
  * @swagger
  * tags:
@@ -12,9 +13,9 @@ export default (router) => {
   router.use('/board', route);
   /**
  * @swagger
- * /board/testGet:
+ * /board/major:
  *   get:
- *     summary: user:'test' 값을 json으로 반환함
+ *     summary: 분류를 반환함
  *     tags: [board]
  *     produces:
  *       - application/json
@@ -22,11 +23,19 @@ export default (router) => {
  *       200:
  *         description: OK
  *         schema:
- *           type: object
- *           properties:
- *             user:
- *               type: string
- *               example: test
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 example: 1
+ *               name:
+ *                 type: string
+ *                 example: 경영, 회계, 사무
  */
-  route.get('/testGet', (req, res) => res.json({ user: 'test' }).status(200));
+  route.get('/major', async (req, res) => {
+    const data = await boardService.listMajor();
+    res.json(data);
+  });
 };
