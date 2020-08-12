@@ -3,8 +3,8 @@ class UserRepository {
     this.pool = pool;
   }
 
-  async get(userId) {
-    const [rows] = await this.pool.query('');
+  async get(email) {
+    const [rows] = await this.pool.query('select * from user where email=?', [email]);
     return rows;
   }
 
