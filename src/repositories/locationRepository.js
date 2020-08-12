@@ -4,7 +4,7 @@ class LocationRepository {
   }
 
   async get() {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('select * from location');
     return rows;
   }
 }

@@ -62,8 +62,8 @@ export default (router) => {
  *                 type: string
  *                 example: 제주특별자치도
  */
-  route.get('/major', async (req, res) => {
-    const data = await boardService.listMajor();
+  route.get('/location', async (req, res) => {
+    const data = await boardService.listLocation();
     res.json(data);
   });
 };
