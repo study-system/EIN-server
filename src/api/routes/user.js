@@ -1,10 +1,12 @@
 import express from 'express';
+
 import userService from '../../services/userService';
+
 /**
  * @swagger
  * tags:
  *   name: user
- *   summary: 회원 관련
+ *   description: 회원 관련
  */
 
 const route = express.Router();

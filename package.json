@@ -20,6 +20,7 @@
   "homepage": "https://github.com/study-system/EIN-server#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.6.1",
     "mysql2": "^2.1.0",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4"

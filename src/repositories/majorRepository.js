@@ -3,7 +3,7 @@ class MajorRepository {
     this.pool = pool;
   }
 
-  async listMajor() {
+  async list() {
     const [rows] = await this.pool.query('SELECT * FROM major');
     return rows;
   }
