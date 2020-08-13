@@ -1,11 +1,12 @@
 import majorRepository from '../repositories/majorRepository';
 import locationRepository from '../repositories/locationRepository';
-import boardRerpsitory from '../repositories/boardRepository';
+import boardRepository from '../repositories/boardRepository';
 
 class BoardService {
-  constructor(majorRepo, locationRepo) {
+  constructor(majorRepo, locationRepo, boardRepo) {
     this.majorRepository = majorRepo();
     this.locationRepository = locationRepo();
+    this.boardRepository = boardRepo();
   }
 
   async listMajor() {
@@ -19,13 +20,15 @@ class BoardService {
   }
 
   async listBoard(authFlag, location, major, target, pageSize, page) {
-    return boardRerpsitory.listBoard(authFlag, location, major, target, pageSize, page);
+    const list = await this.boardRepository.listBoard(authFlag, location, major, target, pageSize, page);
+    return list;
   }
 
   async getBoard(boardId) {
-    return boardRerpsitory.getBoard(boardId);
+    const data = await this.boardRepository.get(boardId);
+    return data;
   }
 }
 
-const boardService = new BoardService(majorRepository, locationRepository);
+const boardService = new BoardService(majorRepository, locationRepository, boardRepository);
 export default boardService;

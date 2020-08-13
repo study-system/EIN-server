@@ -124,11 +124,10 @@ export default (router) => {
  *                 type: string
  *                 example: 강상훈
  */
-  route.get('/board', async (req, res) => {
+  route.get('', async (req, res) => {
     const {
       authFlag, location, major, target, pageSize, page,
     } = req.query;
-    console.log();
     console.log(authFlag, location, major, target, pageSize, page);
     const data = await boardService.listBoard(authFlag, location, major, target, pageSize, page);
     res.json(data);
@@ -175,7 +174,7 @@ export default (router) => {
  *               type: string
  *               example: 2020-08-31T07:12:28Z
  */
-  route.get('/board/:boardId', async (req, res) => {
+  route.get('/:boardId', async (req, res) => {
     const { boardId } = req.params;
     const data = await boardService.getBoard(boardId);
     res.json(data);
