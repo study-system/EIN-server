@@ -10,7 +10,7 @@ class BoardRepository {
     return rows;
   }
 
-  async list(authFlag, location, major, target, pageSize, page) {
+  async list(authFlag, location, major, target, page = 1, pageSize = 10) {
     const [rows] = await this.pool.query('');
     return rows;
   }

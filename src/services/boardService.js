@@ -20,7 +20,7 @@ class BoardService {
   }
 
   async listBoard(authFlag, location, major, target, pageSize, page) {
-    const list = await this.boardRepository.list(authFlag, location, major, target, pageSize, page);
+    const list = await this.boardRepository.list(authFlag, location, major, target, page, pageSize);
     return list;
   }
 

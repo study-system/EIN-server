@@ -9,6 +9,11 @@ tags:
     description: 게시판 관련
   - name: user
     description: 회원관련
+  - name: login/out
+  - name: popup
+    description: 광고 팝업 관련
+  - name: push
+    description: 푸쉬 알람 관련
 paths:
   /user/{email}:
     get:
@@ -73,14 +78,7 @@ paths:
                   message:
                     type: string
                     example: error message
-      parameters:
-        - name: email
-          in: path
-          required: true
-          schema:
-            type: string
-            format: email
-          example: myks790@gmail.com
+
     put:
       summary: 유저 정보를 수정함 (개발중) 
       tags: [user]
@@ -97,13 +95,6 @@ paths:
                   message:
                     type: string
                     example: error message
-      parameters:
-        - name: email
-          in: path
-          required: true
-          schema:
-            type: string
-          example: myks790@gmail.com
       requestBody:
         content:
           application/json:
@@ -128,6 +119,14 @@ paths:
                 pushAgree:
                   type: boolean
                   example: true
+    parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+        example: myks790@gmail.com
+  
   /board/{boardId}:
     get:
       description: 게시글을 반환함
@@ -165,6 +164,7 @@ paths:
           schema:
             type: integer
           example: 1
+  
   /board:
     get:
       summary: 게시글 리스트를 반환함 (개발중) 
@@ -175,19 +175,28 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1
-                    title:
-                      type: string
-                      example: 여름 코딩 캠프
-                    writer:
-                      type: string
-                      example: 강상훈
+                type: object
+                properties:
+                  contents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: 여름 코딩 캠프
+                        writer:
+                          type: string
+                          example: 강상훈
+                  pageNumber:
+                    type: integer
+                    example: 1
+                  totalPages:
+                    type: integer
+                    example: 1
     parameters:
       - name: auth
         in: query
@@ -196,18 +205,18 @@ paths:
           type: boolean
         description: 인증 게시판, 자유 게시판 선택 플래그
         example: yes
-      - name: pageSize
-        in: query
-        required: true
-        schema:
-          type: integer
-        example: 10
       - name: page
+        description: 'default: 1'
         in: query
-        required: true
         schema:
           type: integer
         example: 1
+      - name: pageSize
+        description: 'default: 10'
+        in: query
+        schema:
+          type: integer
+        example: 10
       - name: location
         in: query
         schema:
@@ -225,6 +234,7 @@ paths:
           type: string
         description: "target code(001: 성인, 002: 유아, 003: 청소년)"
         example: "001"
+  
   /board/major:
     get:
       tags: [board]
@@ -245,6 +255,7 @@ paths:
                     name:
                       type: string
                       example: 경영, 회계, 사무
+  
   /board/location:
     get:
       tags: [board]
@@ -268,37 +279,110 @@ paths:
   /blacklist:
     get:
       tags: [blacklist]
-      summary: 블랙리스트 목록을 반환함
+      summary: 블랙리스트 목록을 반환함 (개발중)
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                     type: integer
-                     example: 1
-                    reporter:
-                      type: string
-                      example: myks790@gmail.com
-                    reportedUser:
-                      type: string
-                      example: test@test.com
-                    content:
-                      type: string
-                      example: 욕설등 부적절한 발언을 해서 신고합니다.
-                    createdAt:
-                      type: string
-                      example: 2020-07-01T09:12:28Z
-                    status:
-                      type: string
-                      enum:
-                        - yes
-                        - no
-                        - waiting
-                      example: waiting
+                type: object
+                properties:
+                  contents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        reporter:
+                          type: string
+                          format: email
+                          example: myks790@gmail.com
+                        reportedUser:
+                          type: string
+                          format: email
+                          example: test@test.com
+                        content:
+                          type: string
+                          example: 욕설등 부적절한 발언을 해서 신고합니다.
+                        createdAt:
+                          type: string
+                          example: 2020-07-01T09:12:28Z
+                        status:
+                          type: string
+                          enum:
+                            - yes
+                            - no
+                            - waiting
+                          example: waiting
+                  pageNumber:
+                    type: integer
+                    example: 1
+                  totalPages:
+                    type: integer
+                    example: 1
+      parameters:
+        - name: status
+          description: 동의여부(대기, 동의, 거부)
+          in: query
+          schema:
+            type: string
+        - name: page
+          description: 'default: 1'
+          in: query
+          schema:
+            type: integer
+          example: 1
+        - name: pageSize
+          description: 'default: 10'
+          in: query
+          schema:
+            type: integer
+          example: 10
+
+    post:
+      summary: 블랙리스트 추가 (개발중)
+      tags: [blacklist]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reporter:
+                  type: string
+                  format: email
+                  example: myks790@gmail.com
+                reportedUser:
+                  type: string
+                  format: email
+                  example: spam@user.com
+                content:
+                  type: string
+                  example: 욕설등 부적절한 발언을 해서 신고합니다.
+                
+  /blacklist/{blacklistId}:
+    put:
+      summary: 블랙리스트 status 수정 (개발중, db status 관련 수정 필요)
+      tags: [blacklist]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 동의, 거부 만 선택 가능(기본값은 대기)
+                  example: '거부'
+
+
 
