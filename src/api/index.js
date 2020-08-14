@@ -3,6 +3,7 @@ import board from './routes/board';
 import user from './routes/user';
 import blacklist from './routes/blacklist';
 import swagger from './swagger';
+import popup from './routes/popup';
 
 export default () => {
   const router = express.Router();
@@ -10,5 +11,6 @@ export default () => {
   board(router);
   user(router);
   blacklist(router);
+  popup(router);
   return router;
 };

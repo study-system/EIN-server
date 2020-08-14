@@ -129,7 +129,7 @@ paths:
   
   /board/{boardId}:
     get:
-      description: 게시글을 반환함
+      summary: 게시글을 반환함
       tags: [board]
       responses:
         '200':
@@ -383,6 +383,63 @@ paths:
                   type: string
                   description: 동의, 거부 만 선택 가능(기본값은 대기)
                   example: '거부'
+  /popup:
+    get:
+      tags: [popup]
+      summary: 홍보 팝업 조회 (개발중)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+                    example: myks790.iptime.org/images/popup/asldfkjafs.png
+                  active:
+                    type: string
+                    enum:
+                      - yes
+                      - no
+                    example: yes
+
+    post:
+      summary: 광고 이미지 변경 (개발중)
+      tags: [popup]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  example: myks790.iptime.org/images/popup/asldfkjafs.png
+                
+    put:
+      summary: 팝업 활성화 설정 (개발중)
+      tags: [popup]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                active:
+                  type: string
+                  description: yes, no 만 선택 가능
+                  example: 'yes'
+                  enum:
+                    - yes
+                    - no
 
 
 

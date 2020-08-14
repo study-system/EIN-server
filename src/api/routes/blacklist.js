@@ -12,16 +12,16 @@ export default (router) => {
     res.json(data);
   });
 
+  route.post('/', async (req, res) => {
+    const { reporter, reportedUser, content } = req.body;
+    const data = await blacklistService.report(reporter, reportedUser, content);
+    res.json(data);
+  });
+
   route.put('/:blacklistId', async (req, res) => {
     const { blacklistId } = req.params;
     const { status } = req.body;
     const data = await blacklistService.changeStatus(blacklistId, status);
-    res.json(data);
-  });
-
-  route.post('/', async (req, res) => {
-    const { reporter, reportedUser, content } = req.body;
-    const data = await blacklistService.report(reporter, reportedUser, content);
     res.json(data);
   });
 };
