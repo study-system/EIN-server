@@ -1,6 +1,7 @@
 import express from 'express';
 
 import userService from '../../services/userService';
+import validateUtil from '../../utils';
 
 /**
  * @swagger
@@ -54,8 +55,16 @@ export default (router) => {
  *             pushAgree:
  *               type: boolean
  *               example: true
+ *       400:
+ *         description: Bad request
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               example: error message
  *   put:
- *     summary: 유저 정보 수정함
+ *     summary: 유저 정보 수정함 (개발중)
  *     tags: [user]
  *     produces:
  *       - application/json
@@ -91,14 +100,22 @@ export default (router) => {
  *     responses:
  *       200:
  *         description: OK
+ *       400:
+ *         description: Bad request
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               example: error message
  */
-  route.get('/:email', async (req, res) => {
+  route.get('/:email', validateUtil.email, async (req, res) => {
     const { email } = req.params;
     const data = await userService.get(email);
     res.json(data);
   });
 
-  route.put('/:email', async (req, res) => {
+  route.put('/:email', validateUtil.email, async (req, res) => {
     const { email } = req.params;
     const {
       password, nickname, phone, address, detailAddress,

@@ -71,7 +71,7 @@ export default (router) => {
  * @swagger
  * /board:
  *   get:
- *     summary: 게시글 리스트를 반환함
+ *     summary: 게시글 리스트를 반환함 (개발중)
  *     tags: [board]
  *     produces:
  *       - application/json
@@ -124,11 +124,10 @@ export default (router) => {
  *                 type: string
  *                 example: 강상훈
  */
-  route.get('', async (req, res) => {
+  route.get('/', async (req, res) => {
     const {
       authFlag, location, major, target, pageSize, page,
     } = req.query;
-    console.log(authFlag, location, major, target, pageSize, page);
     const data = await boardService.listBoard(authFlag, location, major, target, pageSize, page);
     res.json(data);
   });
