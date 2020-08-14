@@ -7,7 +7,7 @@ class UserService {
 
   async get(email) {
     const result = await this.userRepository.get(email);
-    return result;
+    return result[0];
   }
 
   async update(email, password, nickname, phone, address, detailAddress) {

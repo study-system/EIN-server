@@ -26,7 +26,7 @@ class BoardService {
 
   async getBoard(boardId) {
     const data = await this.boardRepository.get(boardId);
-    return data;
+    return data[0];
   }
 }
 
