@@ -2,7 +2,7 @@ import userRepository from '../repositories/userRepository';
 
 class UserService {
   constructor(userRepo) {
-    this.userRepository = userRepo();
+    this.userRepository = userRepo;
   }
 
   async get(email) {

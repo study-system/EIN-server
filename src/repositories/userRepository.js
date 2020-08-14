@@ -1,6 +1,8 @@
+import pool from '../loaders/mysqlLoader';
+
 class UserRepository {
-  constructor(pool) {
-    this.pool = pool;
+  constructor(dbPool) {
+    this.pool = dbPool;
   }
 
   async get(email) {
@@ -9,12 +11,9 @@ class UserRepository {
   }
 
   async update(password, nickname, phone, address, detailAddress) {
-    return null;
+    const [rows] = await this.pool.query('');
+    return rows;
   }
 }
-let instance = null;
 
-export default (pool) => {
-  if (instance === null) { instance = new UserRepository(pool); }
-  return instance;
-};
+export default new UserRepository(pool);

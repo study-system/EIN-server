@@ -12,7 +12,7 @@ tags:
 paths:
   /user/{email}:
     get:
-      summary: "유저정보를 반환함 (수정 필요 : pw, location ,id )"
+      summary: "유저정보를 반환함 (수정 필요 : pw, location ,id, phone(- 빼기) )"
       tags: [user]
       responses:
         '200':
@@ -34,7 +34,7 @@ paths:
                     example: 강모씨
                   phone:
                     type: string
-                    example: 01012345678
+                    example: '01012345678'
                   address:
                     type: string
                     example: 제주도 특별자치도 제주시 진남로 99길 10

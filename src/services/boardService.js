@@ -4,9 +4,9 @@ import boardRepository from '../repositories/boardRepository';
 
 class BoardService {
   constructor(majorRepo, locationRepo, boardRepo) {
-    this.majorRepository = majorRepo();
-    this.locationRepository = locationRepo();
-    this.boardRepository = boardRepo();
+    this.majorRepository = majorRepo;
+    this.locationRepository = locationRepo;
+    this.boardRepository = boardRepo;
   }
 
   async listMajor() {

@@ -1,6 +1,8 @@
+import pool from '../loaders/mysqlLoader';
+
 class MajorRepository {
-  constructor(pool) {
-    this.pool = pool;
+  constructor(dbPool) {
+    this.pool = dbPool;
   }
 
   async list() {
@@ -8,9 +10,5 @@ class MajorRepository {
     return rows;
   }
 }
-let instance = null;
 
-export default (pool) => {
-  if (instance === null) { instance = new MajorRepository(pool); }
-  return instance;
-};
+export default new MajorRepository(pool);

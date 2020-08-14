@@ -1,6 +1,8 @@
+import pool from '../loaders/mysqlLoader';
+
 class BoardRepository {
-  constructor(pool) {
-    this.pool = pool;
+  constructor(dbPool) {
+    this.pool = dbPool;
   }
 
   async get(boardId) {
@@ -13,9 +15,5 @@ class BoardRepository {
     return rows;
   }
 }
-let instance = null;
 
-export default (pool) => {
-  if (instance === null) { instance = new BoardRepository(pool); }
-  return instance;
-};
+export default new BoardRepository(pool);
