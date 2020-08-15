@@ -4,6 +4,7 @@ import board from './routes/board';
 import user from './routes/user';
 import blacklist from './routes/blacklist';
 import popup from './routes/popup';
+import loginout from './routes/loginout';
 
 export default () => {
   const router = express.Router();
@@ -12,5 +13,6 @@ export default () => {
   user(router);
   blacklist(router);
   popup(router);
+  loginout(router);
   return router;
 };

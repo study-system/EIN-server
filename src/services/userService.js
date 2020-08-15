@@ -13,6 +13,12 @@ class UserService {
   async update(email, password, nickname, phone, address, detailAddress) {
     await this.userRepository.update(email, password, nickname, phone, address, detailAddress);
   }
+
+  async verify(email, password) {
+    await this.userRepository.getSaltAndPassword(email);
+    // to do
+    return false;
+  }
 }
 
 const userService = new UserService(userRepository);

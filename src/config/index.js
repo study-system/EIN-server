@@ -8,13 +8,17 @@ export default {
   api: {
     prefix: '',
   },
-  mysqlSetting: {
-    host: db.host,
-    port: db.port,
-    user: db.user,
-    password: db.password,
-    database: db.database,
+  mysql: {
+    host: db.mysql.host,
+    port: db.mysql.port,
+    user: db.mysql.user,
+    password: db.mysql.password,
+    database: db.mysql.database,
     waitForConnections: true,
     connectionLimit: 10,
+  },
+  redis: {
+    host: db.redis.host,
+    port: db.redis.port,
   },
 };

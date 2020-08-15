@@ -15,6 +15,35 @@ tags:
   - name: push
     description: 푸쉬 알람 관련
 paths:
+  /login:
+    post:
+      summary: (개발중)
+      tags: [login/out]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: myks790@gmail.com
+                password:
+                  type: string
+                  example: 1234
+
+  /logout:
+    get:
+      summary: (개발중)
+      tags: [login/out]
+      responses:
+        '200':
+          description: OK
+
   /user/{email}:
     get:
       summary: "유저정보를 반환함 (수정 필요 : pw, location ,id, phone(- 빼기) )"
@@ -165,7 +194,7 @@ paths:
                     type: string
                     example: 2020-08-31T07:12:28Z
     delete:
-      summary: 게시글을 삭제함
+      summary: 게시글을 삭제함 (개발중)
       tags: [board]
       responses:
         '200':

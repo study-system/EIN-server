@@ -14,6 +14,11 @@ class UserRepository {
     const [rows] = await this.pool.query('');
     return rows;
   }
+
+  async getSaltAndPassword(email) {
+    const [rows] = await this.pool.query('');
+    return rows;
+  }
 }
 
 export default new UserRepository(pool);
