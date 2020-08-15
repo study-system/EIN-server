@@ -383,6 +383,7 @@ paths:
                   type: string
                   description: 동의, 거부 만 선택 가능(기본값은 대기)
                   example: '거부'
+
   /popup:
     get:
       tags: [popup]
@@ -441,5 +442,100 @@ paths:
                     - yes
                     - no
 
+  /board/{boardId}/comment:
+    parameters:
+      - name: boardId
+        description: 게시글 id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 1
 
+    get:
+      tags: [board]
+      summary: 익명 댓글 목록을 반환함 (개발중)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        comment:
+                          type: string
+                          example: 졸업자인데 참여 가능한가요?
+                        wirterFlag:
+                          type: boolean
+                          example: false
+                          description: 게시글 작성자 여부 확인 플래그
+
+    post:
+      summary: 익명 댓글 추가 (개발중)
+      tags: [board]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userEmail:
+                  type: string
+                  format: email
+                  example: myks790@gmail.com
+                comment:
+                  type: string
+                  example: 졸업자인데 참여 가능한가요?
+  
+  /board/{boardId}/comment/{commentId}:     
+    parameters:
+      - name: boardId
+        description: 게시글 id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: commentId
+        description: comment id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 1       
+    put:
+      summary: 익명댓글 내용 수정 (개발중)
+      tags: [board]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: 동의, 거부 만 선택 가능(기본값은 대기)
+                  example: 조기졸업인데 참여 가능한가요?
+              
+    delete:
+      summary: 익명댓글 내용 삭제 (개발중)
+      tags: [board]
+      responses:
+        '200':
+          description: OK
 

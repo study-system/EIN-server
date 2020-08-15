@@ -1,13 +1,15 @@
 import majorRepository from '../repositories/majorRepository';
 import locationRepository from '../repositories/locationRepository';
 import boardRepository from '../repositories/boardRepository';
+import commentRepository from '../repositories/commentRepository';
 import Page from '../utils/Page';
 
 class BoardService {
-  constructor(majorRepo, locationRepo, boardRepo) {
+  constructor(majorRepo, locationRepo, boardRepo, commentRepo) {
     this.majorRepository = majorRepo;
     this.locationRepository = locationRepo;
     this.boardRepository = boardRepo;
+    this.commentRepository = commentRepo;
   }
 
   async listMajor() {
@@ -32,7 +34,30 @@ class BoardService {
     const data = await this.boardRepository.get(boardId);
     return data[0];
   }
+
+  async listComment(boardId) {
+    return {
+      contents: await this.commentRepository.list(boardId),
+    };
+  }
+
+  async createComment(boardId, userEmail, comment) {
+    const result = await this.commentRepository.create(boardId, userEmail, comment);
+    return result;
+  }
+
+  async putComment(commentId, comment) {
+    const result = await this.commentRepository.put(commentId, comment);
+    return result;
+  }
+
+  async deleteComment(commentId) {
+    const result = await this.commentRepository.delete(commentId);
+    return result;
+  }
 }
 
-const boardService = new BoardService(majorRepository, locationRepository, boardRepository);
+const boardService = new BoardService(
+  majorRepository, locationRepository, boardRepository, commentRepository,
+);
 export default boardService;

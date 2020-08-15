@@ -29,4 +29,30 @@ export default (router) => {
     const data = await boardService.getBoard(boardId);
     res.json(data);
   });
+
+  route.get('/:boardId/comment', async (req, res) => {
+    const { boardId } = req.params;
+    const data = await boardService.listComment(boardId);
+    res.json(data);
+  });
+
+  route.post('/:boardId/comment', async (req, res) => {
+    const { boardId } = req.params;
+    const { userEmail, comment } = req.body;
+    const data = await boardService.createComment(boardId, userEmail, comment);
+    res.json(data);
+  });
+
+  route.put('/:boardId/comment/:commentId', async (req, res) => {
+    const { commentId } = req.params;
+    const { comment } = req.body;
+    const data = await boardService.createComment(commentId, comment);
+    res.json(data);
+  });
+
+  route.delete('/:boardId/comment/:commentId', async (req, res) => {
+    const { commentId } = req.params;
+    const data = await boardService.deleteComment(commentId);
+    res.json(data);
+  });
 };
