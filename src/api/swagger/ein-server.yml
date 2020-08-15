@@ -128,6 +128,13 @@ paths:
         example: myks790@gmail.com
   
   /board/{boardId}:
+    parameters:
+      - name: boardId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 1
     get:
       summary: 게시글을 반환함
       tags: [board]
@@ -157,13 +164,45 @@ paths:
                   end_date:
                     type: string
                     example: 2020-08-31T07:12:28Z
-      parameters:
-        - name: boardId
-          in: path
-          required: true
-          schema:
-            type: integer
-          example: 1
+    delete:
+      summary: 게시글을 삭제함
+      tags: [board]
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: 게시글 수정함 (개발중)
+      tags: [board]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: 여름 코딩 캠프
+                start_date:
+                  type: string
+                  example: 2020-07-01T09:12:28Z
+                end_date:
+                  type: string
+                  example: 2020-07-21T09:12:28Z
+                content:
+                  type: string
+                  example: 9박 10일 여름 코딩 캠프~~~ 
+                location_id:
+                  type: integer
+                  example: 17
+                major_id:
+                  type: integer
+                  example: 1
+                target_id:
+                  type: integer
+                  example: 1
   
   /board:
     get:
@@ -197,43 +236,79 @@ paths:
                   totalPages:
                     type: integer
                     example: 1
-    parameters:
-      - name: auth
-        in: query
-        required: true
-        schema:
-          type: boolean
-        description: 인증 게시판, 자유 게시판 선택 플래그
-        example: yes
-      - name: page
-        description: 'default: 1'
-        in: query
-        schema:
-          type: integer
-        example: 1
-      - name: pageSize
-        description: 'default: 10'
-        in: query
-        schema:
-          type: integer
-        example: 10
-      - name: location
-        in: query
-        schema:
-          type: string
-        example: 제주특별자치도
-      - name: major
-        in: query
-        schema:
-          type: string
-        description: "major code(001: '경영,회계,사무', 002: '취업,창업', 003: '금융,보험', ...)"
-        example: "001"
-      - name: target
-        in: query
-        schema:
-          type: string
-        description: "target code(001: 성인, 002: 유아, 003: 청소년)"
-        example: "001"
+      parameters:
+        - name: auth
+          in: query
+          required: true
+          schema:
+            type: boolean
+          description: 인증 게시판, 자유 게시판 선택 플래그
+          example: yes
+        - name: page
+          description: 'default: 1'
+          in: query
+          schema:
+            type: integer
+          example: 1
+        - name: pageSize
+          description: 'default: 10'
+          in: query
+          schema:
+            type: integer
+          example: 10
+        - name: location
+          in: query
+          schema:
+            type: string
+          example: 제주특별자치도
+        - name: major
+          in: query
+          schema:
+            type: string
+          description: "major code(001: '경영,회계,사무', 002: '취업,창업', 003: '금융,보험', ...)"
+          example: "001"
+        - name: target
+          in: query
+          schema:
+            type: string
+          description: "target code(001: 성인, 002: 유아, 003: 청소년)"
+          example: "001"
+    post:
+      summary: 게시글 생성 (개발중)
+      tags: [board]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: 1
+                title:
+                  type: string
+                  example: 여름 코딩 캠프
+                start_date:
+                  type: string
+                  example: 2020-07-01T09:12:28Z
+                end_date:
+                  type: string
+                  example: 2020-07-21T09:12:28Z
+                content:
+                  type: string
+                  example: 14박 15일 여름 코딩 캠프~~~ 
+                location_id:
+                  type: integer
+                  example: 17
+                major_id:
+                  type: integer
+                  example: 1
+                target_id:
+                  type: integer
+                  example: 1
   
   /board/major:
     get:

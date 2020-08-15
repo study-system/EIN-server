@@ -24,9 +24,35 @@ export default (router) => {
     res.json(data);
   });
 
+  route.post('/', async (req, res) => {
+    const {
+      userId, title, startDate, endDate, content, locationId, majorId, targetId,
+    } = req.body;
+    const data = await boardService.createBoard(
+      userId, title, startDate, endDate, content, locationId, majorId, targetId,
+    );
+    res.json(data);
+  });
+
+  route.put('/:boardId', async (req, res) => {
+    const {
+      boardId, title, startDate, endDate, content, locationId, majorId, targetId,
+    } = req.body;
+    const data = await boardService.editBoard(
+      boardId, title, startDate, endDate, content, locationId, majorId, targetId,
+    );
+    res.json(data);
+  });
+
   route.get('/:boardId', async (req, res) => {
     const { boardId } = req.params;
     const data = await boardService.getBoard(boardId);
+    res.json(data);
+  });
+
+  route.delete('/:boardId', async (req, res) => {
+    const { boardId } = req.params;
+    const data = await boardService.deleteBoard(boardId);
     res.json(data);
   });
 

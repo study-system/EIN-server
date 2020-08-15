@@ -22,6 +22,21 @@ class BoardRepository {
     return rows;
   }
 
+  async create(userId, title, startDate, endDate, content, locationId, majorId, targetId) {
+    const [rows] = await this.pool.query('');
+    return rows;
+  }
+
+  async put(boardId, title, startDate, endDate, content, locationId, majorId, targetId) {
+    const [rows] = await this.pool.query('');
+    return rows;
+  }
+
+  async delete(boardId) {
+    const [rows] = await this.pool.query('');
+    return rows;
+  }
+
   async size(auth) {
     // const [rows] = await this.pool.query('');
     return 1;

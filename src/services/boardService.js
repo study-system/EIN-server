@@ -22,6 +22,25 @@ class BoardService {
     return list;
   }
 
+  async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId) {
+    const result = await this.boardRepository.create(
+      userId, title, startDate, endDate, content, locationId, majorId, targetId,
+    );
+    return result;
+  }
+
+  async editBoard(boardId, title, startDate, endDate, content, locationId, majorId, targetId) {
+    const result = await this.boardRepository.put(
+      boardId, title, startDate, endDate, content, locationId, majorId, targetId,
+    );
+    return result;
+  }
+
+  async deleteBoard(boardId) {
+    const result = await this.boardRepository.delete(boardId);
+    return result;
+  }
+
   async listBoard(authFlag, location, major, target, pageSize = 10, page = 1) {
     return Page(
       await this.boardRepository.list(authFlag, location, major, target, page, pageSize),
