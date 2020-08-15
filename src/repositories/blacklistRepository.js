@@ -5,8 +5,8 @@ class BlacklistRepository {
     this.pool = dbPool;
   }
 
-  async list(status, page = 1, pageSize = 10) {
-    const [rows] = await this.pool.query('');
+  async list(status, page, pageSize) {
+    const [rows] = await this.pool.query('select * from blacklist');
     return rows;
   }
 
@@ -18,6 +18,11 @@ class BlacklistRepository {
   async create(reporter, reportedUser, content) {
     const [rows] = await this.pool.query('');
     return rows;
+  }
+
+  async size(auth) {
+    // const [rows] = await this.pool.query('');
+    return 1;
   }
 }
 

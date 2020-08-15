@@ -1,7 +1,7 @@
 import express from 'express';
 
 import userService from '../../services/userService';
-import validateUtil from '../../utils';
+import validateUtil from '../../utils/validateUtil';
 
 const route = express.Router();
 

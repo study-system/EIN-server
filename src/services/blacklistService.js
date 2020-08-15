@@ -1,13 +1,17 @@
 import blacklistRepository from '../repositories/blacklistRepository';
+import Page from '../utils/Page';
 
 class BlacklistService {
   constructor(blacklistRepo) {
     this.blacklistRepository = blacklistRepo;
   }
 
-  async listblacklist(status, page, pageSize) {
-    const list = await this.blacklistRepository.list(status, page, pageSize);
-    return list;
+  async listblacklist(status, page = 1, pageSize = 10) {
+    return Page(
+      await this.blacklistRepository.list(status, page, pageSize),
+      page,
+      await this.blacklistRepository.size(),
+    );
   }
 
   async changeStatus(blacklistId, status) {

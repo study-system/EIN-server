@@ -1,8 +1,8 @@
 import express from 'express';
+import swagger from './swagger';
 import board from './routes/board';
 import user from './routes/user';
 import blacklist from './routes/blacklist';
-import swagger from './swagger';
 import popup from './routes/popup';
 
 export default () => {

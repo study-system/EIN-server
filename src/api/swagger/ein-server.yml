@@ -167,7 +167,7 @@ paths:
   
   /board:
     get:
-      summary: 게시글 리스트를 반환함 (개발중) 
+      summary: 게시글 리스트를 반환함 (개발중, db auth 필드 필요(인증, 자유 게시판 여부),  locaion(id???),  major, target(code???) ) 
       tags: [board]
       responses:
         '200':

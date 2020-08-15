@@ -1,4 +1,5 @@
 import pool from '../loaders/mysqlLoader';
+import sqlSupporter from '../utils/sqlSupporter';
 
 class BoardRepository {
   constructor(dbPool) {
@@ -10,9 +11,20 @@ class BoardRepository {
     return rows;
   }
 
-  async list(authFlag, location, major, target, page = 1, pageSize = 10) {
-    const [rows] = await this.pool.query('');
+  async list(auth, location, major, target, page, pageSize) {
+    // const wh = sqlSupporter.genericAndfilter({
+    //   location_id: location, major_id: major, target_id: target,
+    // });
+    // console.log(wh);
+    // const limit = sqlSupporter.convertPageToLimit(page, pageSize)
+    // console.log(limit)
+    const [rows] = await this.pool.query('select * from board');
     return rows;
+  }
+
+  async size(auth) {
+    // const [rows] = await this.pool.query('');
+    return 1;
   }
 }
 
