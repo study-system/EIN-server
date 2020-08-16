@@ -16,6 +16,11 @@ export default (router) => {
     res.json(data);
   });
 
+  route.get('/target', async (req, res) => {
+    const data = await boardService.listTarget();
+    res.json(data);
+  });
+
   route.get('/', async (req, res) => {
     const {
       auth, location, major, target, pageSize, page,

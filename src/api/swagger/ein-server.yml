@@ -44,6 +44,52 @@ paths:
         '200':
           description: OK
 
+  /user:
+    post:
+      summary: 회원 가입
+      tags: [user]
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: myks790@gmail.com
+                password:
+                  type: string
+                  example: 1234
+                name:
+                  type: string
+                  example: 강상훈
+                nickname:
+                  type: string
+                  example: 닉네임
+                phone:
+                  type: string
+                  example: 01012345678
+                address:
+                  type: string
+                  example: 제주도 특별자치도 제주시 진남로 99길 10
+                detail address:
+                  type: string
+                  example: 101호
+                locaion:
+                  type: integer
+                  example: 17
+                push agree:
+                  type: string
+                  example: yes
+                  enum:
+                    - yes
+                    - no
+
+
   /user/{email}:
     get:
       summary: "유저정보를 반환함 (수정 필요 : pw, location ,id, phone(- 빼기) )"
@@ -359,6 +405,33 @@ paths:
                     name:
                       type: string
                       example: 경영, 회계, 사무
+                    code:
+                      type: string
+                      example: 001
+  
+  /board/target:
+    get:
+      tags: [board]
+      summary: 대상을 반환함
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 1
+                    name:
+                      type: string
+                      example: 성인
+                    code:
+                      type: string
+                      example: 001
   
   /board/location:
     get:
@@ -380,6 +453,10 @@ paths:
                     name:
                       type: string
                       example: 서울특별시
+                    code:
+                      type: string
+                      example: 001
+
   /blacklist:
     get:
       tags: [blacklist]
