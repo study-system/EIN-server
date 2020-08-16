@@ -33,7 +33,7 @@ class BoardRepository {
   }
 
   async delete(boardId) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('DELETE FROM board WHERE id =?', [boardId]);
     return rows;
   }
 
