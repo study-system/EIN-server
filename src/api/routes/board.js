@@ -23,9 +23,9 @@ export default (router) => {
 
   route.get('/', async (req, res) => {
     const {
-      auth, location, major, target, pageSize, page,
+      auth, location_id, major_id, target_id, pageSize, page,
     } = req.query;
-    const data = await boardService.listBoard(auth, location, major, target, pageSize, page);
+    const data = await boardService.listBoard(auth, location_id, major_id, target_id, pageSize, page);
     res.json(data);
   });
 

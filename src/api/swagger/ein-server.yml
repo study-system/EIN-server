@@ -331,22 +331,22 @@ paths:
           schema:
             type: integer
           example: 10
-        - name: location
+        - name: location_id
           in: query
           schema:
-            type: string
-          example: 제주특별자치도
-        - name: major
+            type: integer
+          example: 17
+        - name: major_id
           in: query
           schema:
-            type: string
-          description: "major code(001: '경영,회계,사무', 002: '취업,창업', 003: '금융,보험', ...)"
+            type: integer
+          description: "major id(1: '경영,회계,사무', 2: '취업,창업', 3: '금융,보험', ...)"
           example: "001"
-        - name: target
+        - name: target_id
           in: query
           schema:
-            type: string
-          description: "target code(001: 성인, 002: 유아, 003: 청소년)"
+            type: integer
+          description: "target id(1: 성인, 2: 유아, 3: 청소년)"
           example: "001"
     post:
       summary: 게시글 생성 (개발중)

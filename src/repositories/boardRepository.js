@@ -12,13 +12,11 @@ class BoardRepository {
   }
 
   async list(auth, location, major, target, page, pageSize) {
-    // const wh = sqlSupporter.genericAndfilter({
-    //   location_id: location, major_id: major, target_id: target,
-    // });
-    // console.log(wh);
-    // const limit = sqlSupporter.convertPageToLimit(page, pageSize)
-    // console.log(limit)
-    const [rows] = await this.pool.query('select * from board');
+    const whSql = sqlSupporter.genericAndfilter({
+      location_id: location, major_id: major, target_id: target,
+    });
+    const limit = sqlSupporter.convertPageToLimit(page, pageSize);
+    const [rows] = await this.pool.query(`select title,board.id,nickname from board join user on user_id = user.id ${whSql}  order by board.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 
