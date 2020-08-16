@@ -7,7 +7,7 @@ class BoardRepository {
   }
 
   async get(boardId) {
-    const [rows] = await this.pool.query('select user.name as "writer",title,content,location.name as "location",start_date,end_date from board join user on board.id = user.id join location on location_id = location.id where board.id=?', [boardId]);
+    const [rows] = await this.pool.query('select user.name as "writer",title,content,location.name as "location",start_date,end_date from board join user on board.user_id = user.id join location on location_id = location.id where board.id=?', [boardId]);
     return rows;
   }
 
@@ -28,7 +28,7 @@ class BoardRepository {
   }
 
   async put(boardId, title, startDate, endDate, content, locationId, majorId, targetId) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('update board set title = ?, start_date = ?, end_date = ?, content = ?, location_id = ?, major_id = ?, target_id = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, boardId]);
     return rows;
   }
 
