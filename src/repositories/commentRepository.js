@@ -16,7 +16,7 @@ class CommentRepository {
   }
 
   async create(boardId, userEmail, comment) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('INSERT INTO study_db.comment(board_id,comment, user_email) values(?,?,?)', [boardId, comment, userEmail]);
     return rows;
   }
 
