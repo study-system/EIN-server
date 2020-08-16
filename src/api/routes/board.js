@@ -42,10 +42,10 @@ export default (router) => {
   route.put('/:boardId', async (req, res) => {
     const { boardId } = req.params;
     const {
-      title, start_date, end_date, content, locationId, majorId, targetId,
+      title, start_date, end_date, content, location_id, major_id, target_id,
     } = req.body;
     const data = await boardService.editBoard(
-      boardId, title, start_date, end_date, content, locationId, majorId, targetId,
+      boardId, title, start_date, end_date, content, location_id, major_id, target_id,
     );
     res.json(data);
   });

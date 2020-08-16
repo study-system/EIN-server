@@ -28,7 +28,7 @@ class BoardRepository {
   }
 
   async put(boardId, title, startDate, endDate, content, locationId, majorId, targetId) {
-    const [rows] = await this.pool.query('update board set title = ?, start_date = ?, end_date = ?, content = ?, location_id = ?, major_id = ?, target_id = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, boardId]);
+    const [rows] = await this.pool.query('update board set title = ?, start_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), end_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), content = ?, location_id = ?, major_id = ?, target_id = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, boardId]);
     return rows;
   }
 
