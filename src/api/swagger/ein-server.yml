@@ -341,13 +341,13 @@ paths:
           schema:
             type: integer
           description: "major id(1: '경영,회계,사무', 2: '취업,창업', 3: '금융,보험', ...)"
-          example: "001"
+          example: "1"
         - name: target_id
           in: query
           schema:
             type: integer
           description: "target id(1: 성인, 2: 유아, 3: 청소년)"
-          example: "001"
+          example: "1"
     post:
       summary: 게시글 생성 (개발중)
       tags: [board]
@@ -384,6 +384,12 @@ paths:
                 target_id:
                   type: integer
                   example: 1
+                auth:
+                  type: string
+                  example: yes
+                  enum: 
+                    - yes
+                    - no
   
   /board/major:
     get:

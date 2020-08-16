@@ -31,10 +31,10 @@ export default (router) => {
 
   route.post('/', async (req, res) => {
     const {
-      userId, title, startDate, endDate, content, locationId, majorId, targetId,
+      userId, title, start_date, end_date, content, location_id, major_id, target_id, auth,
     } = req.body;
     const data = await boardService.createBoard(
-      userId, title, startDate, endDate, content, locationId, majorId, targetId,
+      userId, title, start_date, end_date, content, location_id, major_id, target_id, auth,
     );
     res.json(data);
   });

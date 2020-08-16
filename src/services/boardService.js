@@ -29,9 +29,9 @@ class BoardService {
     return list;
   }
 
-  async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId) {
+  async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId, auth) {
     const result = await this.boardRepository.create(
-      userId, title, startDate, endDate, content, locationId, majorId, targetId,
+      userId, title, startDate, endDate, content, locationId, majorId, targetId, auth,
     );
     return result;
   }

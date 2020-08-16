@@ -20,8 +20,8 @@ class BoardRepository {
     return rows;
   }
 
-  async create(userId, title, startDate, endDate, content, locationId, majorId, targetId) {
-    const [rows] = await this.pool.query('');
+  async create(userId, title, startDate, endDate, content, locationId, majorId, targetId, auth) {
+    const [rows] = await this.pool.query('INSERT INTO study_db.board(user_id,title,start_date,end_date,content,location_id,major_id,target_id,auth) values(?,?,STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"),STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"),?,?,?,?,?)', [userId, title, startDate, endDate, content, locationId, majorId, targetId, auth]);
     return rows;
   }
 
@@ -36,8 +36,8 @@ class BoardRepository {
   }
 
   async size(auth) {
-    // const [rows] = await this.pool.query('');
-    return 1;
+    const [rows] = await this.pool.query('SELECT COUNT(*) FROM board where auth = ?;', [auth]);
+    return rows[0]['COUNT(*)'];
   }
 }
 
