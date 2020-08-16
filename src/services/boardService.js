@@ -2,14 +2,16 @@ import majorRepository from '../repositories/majorRepository';
 import locationRepository from '../repositories/locationRepository';
 import boardRepository from '../repositories/boardRepository';
 import commentRepository from '../repositories/commentRepository';
+import targetRepository from '../repositories/targetRepository';
 import Page from '../utils/Page';
 
 class BoardService {
-  constructor(majorRepo, locationRepo, boardRepo, commentRepo) {
+  constructor(majorRepo, locationRepo, boardRepo, commentRepo, targetRepo) {
     this.majorRepository = majorRepo;
     this.locationRepository = locationRepo;
     this.boardRepository = boardRepo;
     this.commentRepository = commentRepo;
+    this.targetRepository = targetRepo;
   }
 
   async listMajor() {
@@ -19,6 +21,11 @@ class BoardService {
 
   async listLocation() {
     const list = await this.locationRepository.list();
+    return list;
+  }
+
+  async listTarget() {
+    const list = await this.targetRepository.list();
     return list;
   }
 
@@ -77,6 +84,6 @@ class BoardService {
 }
 
 const boardService = new BoardService(
-  majorRepository, locationRepository, boardRepository, commentRepository,
+  majorRepository, locationRepository, boardRepository, commentRepository, targetRepository,
 );
 export default boardService;
