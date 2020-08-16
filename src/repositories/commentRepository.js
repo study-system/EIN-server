@@ -6,7 +6,7 @@ class CommentRepository {
   }
 
   async list(boardId) {
-    const [rows] = await this.pool.query('select * from comment');
+    const [rows] = await this.pool.query('select * from comment where board_id = ?', [boardId]);
     return rows;
   }
 
