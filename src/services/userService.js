@@ -18,9 +18,14 @@ class UserService {
   }
 
   async verify(email, password) {
-    const hash = await this.userRepository.getPassword(email);
-    const match = await bcrypt.compare(password, hash);
-    return match;
+    try {
+      const hash = await this.userRepository.getPassword(email);
+      const match = await bcrypt.compare(`${password}`, hash);
+      if (match) { return true; }
+    } catch (error) {
+      return false;
+    }
+    return false;
   }
 
   async signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location) {

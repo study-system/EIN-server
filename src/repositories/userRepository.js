@@ -16,8 +16,9 @@ class UserRepository {
   }
 
   async getPassword(email) {
-    const [rows] = await this.pool.query('');
-    return rows;
+    const [rows] = await this.pool.query('select * from user;');
+    // return rows;
+    return '$2b$13$q29Yjl9asfamcjCWYzhT9uR0MtBbi7zLQ9DwT8zqtyVfmS8BcxhVu';
   }
 
   getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, authUserId) {

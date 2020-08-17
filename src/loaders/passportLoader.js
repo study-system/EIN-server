@@ -11,8 +11,9 @@ passport.use(new LocalStrategy(
     passwordField: 'password',
     session: true,
   },
-  (email, password, done) => {
-    if (!userService.verify(email, password)) {
+  async (email, password, done) => {
+    const success = await userService.verify(email, password);
+    if (!success) {
       return done(null, false, { message: 'Incorrect password' });
     }
     return done(null, { email });
