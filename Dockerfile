@@ -5,6 +5,7 @@ COPY package*.json ./
 RUN apt-get update
 RUN apt-get install python -y
 RUN apt-get install make -y
+RUN apt-get install gcc -y
 RUN npm install
 
 COPY . .
