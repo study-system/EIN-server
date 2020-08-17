@@ -239,18 +239,24 @@ paths:
                   end_date:
                     type: string
                     example: 2020-08-31T07:12:28Z
+        '404':
+          description: 콘텐츠를 찾을 수 없음
     delete:
-      summary: 게시글을 삭제함 (개발중)
+      summary: 게시글을 삭제함
       tags: [board]
       responses:
-        '200':
-          description: OK
+        '204':
+          description: no content 삭제 성공
+        '404':
+          description: not found 삭제할 게시글을 찾을 수 없음
     put:
-      summary: 게시글 수정함 (개발중)
+      summary: 게시글 수정함
       tags: [board]
       responses:
-        '200':
+        '204':
           description: OK
+        '404':
+          description: 수정할 게시글을 찾을 수 없음
       requestBody:
         content:
           application/json:
@@ -281,7 +287,7 @@ paths:
   
   /board:
     get:
-      summary: 게시글 리스트를 반환함 (개발중, db auth 필드 필요(인증, 자유 게시판 여부),  locaion(id???),  major, target(code???) ) 
+      summary: 게시글 리스트를 반환함
       tags: [board]
       responses:
         '200':
@@ -311,12 +317,19 @@ paths:
                   totalPages:
                     type: integer
                     example: 1
+                  pageSize:
+                    type: integer
+                    example: 10
       parameters:
         - name: auth
           in: query
           required: true
           schema:
-            type: boolean
+            type: string
+            example: yes
+            enum:
+              - yes
+              - no
           description: 인증 게시판, 자유 게시판 선택 플래그
           example: yes
         - name: page
@@ -349,18 +362,20 @@ paths:
           description: "target id(1: 성인, 2: 유아, 3: 청소년)"
           example: "1"
     post:
-      summary: 게시글 생성 (개발중)
+      summary: 게시글 생성
       tags: [board]
       responses:
-        '200':
+        '201':
           description: OK
+        '400':
+          description: 생성시 필요한 필수값이 없을 경우 발생
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                userId:
+                user_id:
                   type: string
                   example: 1
                 title:

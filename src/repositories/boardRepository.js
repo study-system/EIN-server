@@ -7,7 +7,7 @@ class BoardRepository {
   }
 
   async get(boardId) {
-    const [rows] = await this.pool.query('select user.name as "writer",title,content,location.name as "location",start_date,end_date from board join user on board.user_id = user.id join location on location_id = location.id where board.id=?', [boardId]);
+    const [rows] = await this.pool.query('select title,content,user.name as "writer",location.name as "location",start_date,end_date from board join user on board.user_id = user.id join location on location_id = location.id where board.id=?', [boardId]);
     return rows;
   }
 
@@ -16,7 +16,7 @@ class BoardRepository {
       location_id: location, major_id: major, target_id: target,
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
-    const [rows] = await this.pool.query(`select title,board.id,nickname from board join user on user_id = user.id ${whSql}  order by board.id desc LIMIT ?, ?`, limit);
+    const [rows] = await this.pool.query(`select board.id,title,nickname from board join user on user_id = user.id ${whSql}  order by board.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 

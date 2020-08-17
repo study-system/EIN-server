@@ -30,22 +30,32 @@ class BoardService {
   }
 
   async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId, auth) {
-    const result = await this.boardRepository.create(
-      userId, title, startDate, endDate, content, locationId, majorId, targetId, auth,
-    );
-    return result;
+    try {
+      const result = await this.boardRepository.create(
+        userId, title, startDate, endDate, content, locationId, majorId, targetId, auth,
+      );
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 
   async editBoard(boardId, title, startDate, endDate, content, locationId, majorId, targetId) {
     const result = await this.boardRepository.put(
       boardId, title, startDate, endDate, content, locationId, majorId, targetId,
     );
-    return result;
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 
   async deleteBoard(boardId) {
     const result = await this.boardRepository.delete(boardId);
-    return result;
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 
   async listBoard(authFlag, location, major, target, pageSize = 10, page = 1) {
@@ -53,12 +63,13 @@ class BoardService {
       await this.boardRepository.list(authFlag, location, major, target, page, pageSize),
       page,
       await this.boardRepository.size(authFlag),
+      pageSize,
     );
   }
 
   async getBoard(boardId) {
     const data = await this.boardRepository.get(boardId);
-    return data[0];
+    return data;
   }
 
   async listComment(boardId) {

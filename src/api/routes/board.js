@@ -31,12 +31,16 @@ export default (router) => {
 
   route.post('/', async (req, res) => {
     const {
-      userId, title, start_date, end_date, content, location_id, major_id, target_id, auth,
+      user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
     } = req.body;
-    const data = await boardService.createBoard(
-      userId, title, start_date, end_date, content, location_id, major_id, target_id, auth,
+    const success = await boardService.createBoard(
+      user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
     );
-    res.json(data);
+    if (success) {
+      res.status(201).end();
+    } else {
+      res.status(400).end();
+    }
   });
 
   route.put('/:boardId', async (req, res) => {
@@ -44,22 +48,33 @@ export default (router) => {
     const {
       title, start_date, end_date, content, location_id, major_id, target_id,
     } = req.body;
-    const data = await boardService.editBoard(
+    const success = await boardService.editBoard(
       boardId, title, start_date, end_date, content, location_id, major_id, target_id,
     );
-    res.json(data);
+    if (success) {
+      res.status(204).end();
+    } else {
+      res.status(404).end();
+    }
   });
 
   route.get('/:boardId', async (req, res) => {
     const { boardId } = req.params;
     const data = await boardService.getBoard(boardId);
-    res.json(data);
+    if (data.length === 0) {
+      return res.status(404).end();
+    }
+    res.json(data[0]);
   });
 
   route.delete('/:boardId', async (req, res) => {
     const { boardId } = req.params;
-    const data = await boardService.deleteBoard(boardId);
-    res.json(data);
+    const success = await boardService.deleteBoard(boardId);
+    if (success) {
+      res.status(204).end();
+    } else {
+      res.status(404).end();
+    }
   });
 
   route.get('/:boardId/comment', async (req, res) => {

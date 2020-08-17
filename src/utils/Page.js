@@ -1,5 +1,6 @@
-export default (contents, pageNumber, totalPages) => ({
+export default (contents, pageNumber, totalItem, pageSize) => ({
   contents,
   pageNumber: parseInt(pageNumber, 10),
-  totalPages,
+  totalPages: Math.ceil(totalItem / pageSize),
+  pageSize: parseInt(pageSize, 10),
 });
