@@ -15,7 +15,35 @@ class UserRepository {
     return rows;
   }
 
-  async getSaltAndPassword(email) {
+  async getPassword(email) {
+    const [rows] = await this.pool.query('');
+    return rows;
+  }
+
+  getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, authUserId) {
+    return '';
+  }
+
+  async signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location) {
+    const [rows] = await this.pool.query(this.getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location));
+    return rows;
+  }
+
+  async authEmail(userId) {
+    const [rows] = await this.pool.query('');
+    return rows;
+  }
+
+  async signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website) {
+    const conn = await this.pool.getConnection();
+    await conn.query('insert into ');
+    const authUserId = await conn.query('SELECT LAST_INSERT_ID();');
+    console.log(authUserId[0][0]['LAST_INSERT_ID()']);
+    await conn.query(this.getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, authUserId));
+    this.pool.releaseConnection(conn);
+  }
+
+  async authUser(userId) {
     const [rows] = await this.pool.query('');
     return rows;
   }

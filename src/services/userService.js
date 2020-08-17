@@ -1,4 +1,7 @@
+import bcrypt from 'bcrypt';
 import userRepository from '../repositories/userRepository';
+
+const saltRounds = 13;
 
 class UserService {
   constructor(userRepo) {
@@ -15,9 +18,19 @@ class UserService {
   }
 
   async verify(email, password) {
-    await this.userRepository.getSaltAndPassword(email);
-    // to do
-    return false;
+    const hash = await this.userRepository.getPassword(email);
+    const match = await bcrypt.compare(password, hash);
+    return match;
+  }
+
+  async signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location) {
+    const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
+    await this.userRepository.signUp(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, role, name, location);
+  }
+
+  async signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website) {
+    const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
+    await this.userRepository.signUpAuthUser(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website);
   }
 }
 

@@ -8,6 +8,14 @@ const route = express.Router();
 export default (router) => {
   router.use('/user', route);
 
+  route.post('/', async (req, res) => {
+    const {
+      email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location,
+    } = req.body;
+    const data = await userService.signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location);
+    res.json(data);
+  });
+
   route.get('/:email', validateUtil.email, async (req, res) => {
     const { email } = req.params;
     const data = await userService.get(email);
