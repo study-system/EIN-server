@@ -31,7 +31,7 @@ class BoardService {
 
   async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId, auth) {
     try {
-      const result = await this.boardRepository.create(
+      await this.boardRepository.create(
         userId, title, startDate, endDate, content, locationId, majorId, targetId, auth,
       );
     } catch (error) {
@@ -79,8 +79,12 @@ class BoardService {
   }
 
   async createComment(boardId, userEmail, comment) {
-    const result = await this.commentRepository.create(boardId, userEmail, comment);
-    return result;
+    try {
+      await this.commentRepository.create(boardId, userEmail, comment);
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 
   async putComment(commentId, comment) {

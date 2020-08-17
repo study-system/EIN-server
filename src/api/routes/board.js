@@ -86,8 +86,12 @@ export default (router) => {
   route.post('/:boardId/comment', async (req, res) => {
     const { boardId } = req.params;
     const { userEmail, comment } = req.body;
-    const data = await boardService.createComment(boardId, userEmail, comment);
-    res.json(data);
+    const success = await boardService.createComment(boardId, userEmail, comment);
+    if (success) {
+      res.status(201).end();
+    } else {
+      res.status(400).end();
+    }
   });
 
   route.put('/:boardId/comment/:commentId', async (req, res) => {
