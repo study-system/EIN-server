@@ -10,18 +10,26 @@ class BlacklistService {
     return Page(
       await this.blacklistRepository.list(status, page, pageSize),
       page,
-      await this.blacklistRepository.size(),
+      await this.blacklistRepository.size(status),
+      pageSize,
     );
   }
 
   async changeStatus(blacklistId, status) {
     const result = await this.blacklistRepository.put(blacklistId, status);
-    return result;
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 
   async report(reporter, reportedUser, content) {
-    const result = await this.blacklistRepository.create(reporter, reportedUser, content);
-    return result;
+    try {
+      await this.blacklistRepository.create(reporter, reportedUser, content);
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 }
 

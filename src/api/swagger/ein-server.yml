@@ -481,7 +481,7 @@ paths:
   /blacklist:
     get:
       tags: [blacklist]
-      summary: 블랙리스트 목록을 반환함 (개발중)
+      summary: 블랙리스트 목록을 반환함 (개발중 db or 문서 수정 필요 동의 여부 관련)
       responses:
         '200':
           description: OK
@@ -548,8 +548,10 @@ paths:
       summary: 블랙리스트 추가 (개발중)
       tags: [blacklist]
       responses:
-        '200':
+        '201':
           description: OK
+        '400':
+          description: 예외 발생
       requestBody:
         content:
           application/json:
@@ -585,6 +587,14 @@ paths:
                   type: string
                   description: 동의, 거부 만 선택 가능(기본값은 대기)
                   example: '거부'
+      parameters:
+        - name: blacklistId
+          description: id
+          required: true
+          in: path
+          schema:
+            type: integer
+          example: 1
 
   /popup:
     get:
@@ -656,7 +666,7 @@ paths:
 
     get:
       tags: [board]
-      summary: 익명 댓글 목록을 반환함
+      summary: 익명 댓글 목록을 반환함 (개발중 wirterFlag 관련 db 수정 필요  userEmail )
       responses:
         '200':
           description: OK

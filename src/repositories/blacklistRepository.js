@@ -20,9 +20,9 @@ class BlacklistRepository {
     return rows;
   }
 
-  async size(auth) {
+  async size(status) {
     // const [rows] = await this.pool.query('');
-    return 1;
+    return 9999 || rows[0]['COUNT(*)'];
   }
 }
 
