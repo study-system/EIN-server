@@ -16,19 +16,16 @@ class UserRepository {
   }
 
   async getSessionInfo(email) {
-    const [rows] = await this.pool.query('select * from user;');
-    // return rows;
-    return {
-      id: '1', email: 'myks790@gmail.com', password: '$2b$13$q29Yjl9asfamcjCWYzhT9uR0MtBbi7zLQ9DwT8zqtyVfmS8BcxhVu', role: '인증',
-    };
+    const [rows] = await this.pool.query('select id,email,password,role from user where email=?;', [email]);
+    return rows[0];
   }
 
-  getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, authUserId) {
-    return '';
+  getInsertUserSql() {
+    return 'insert into user(email,password,nickname,address,detail_address,phone,push_agree,role,name,location_id,authuser_id) values(?,?,?,?,?,?,?,?,?,?,?)';
   }
 
-  async signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location) {
-    const [rows] = await this.pool.query(this.getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location));
+  async signUp(email, password, nickname, address, detailAddress, phone, pushAgree, role, name, location) {
+    const [rows] = await this.pool.query(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, role, name, location, null]);
     return rows;
   }
 
@@ -42,7 +39,7 @@ class UserRepository {
     await conn.query('insert into ');
     const authUserId = await conn.query('SELECT LAST_INSERT_ID();');
     console.log(authUserId[0][0]['LAST_INSERT_ID()']);
-    await conn.query(this.getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, authUserId));
+    await conn.query(this.getInsertUserSql());
     this.pool.releaseConnection(conn);
   }
 

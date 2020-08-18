@@ -10,9 +10,9 @@ export default (router) => {
 
   route.post('/', async (req, res) => {
     const {
-      email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location,
+      email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id,
     } = req.body;
-    const data = await userService.signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location);
+    const data = await userService.signUp(email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id);
     res.json(data);
   });
 

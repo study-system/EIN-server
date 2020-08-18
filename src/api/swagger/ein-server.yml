@@ -156,13 +156,20 @@ paths:
                 address:
                   type: string
                   example: 제주도 특별자치도 제주시 진남로 99길 10
-                detail address:
+                detail_address:
                   type: string
                   example: 101호
-                locaion:
+                role:
+                  type: string
+                  example: 일반
+                  enum:
+                    - 일반
+                    - 인증
+                    - 관리자
+                location_id:
                   type: integer
                   example: 17
-                push agree:
+                push_agree:
                   type: string
                   example: yes
                   enum:
