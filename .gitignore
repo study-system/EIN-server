@@ -104,3 +104,4 @@ dist
 .tern-port
 
 dbConfig.js
+ein-server-firebase-adminsdk-key.json

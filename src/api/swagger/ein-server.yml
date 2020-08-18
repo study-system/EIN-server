@@ -3,6 +3,8 @@ info:
   title: 교육정보 알리미
   version: '1.0'
 tags: 
+  - name: file
+    description: 파일 업로드 관련
   - name: blacklist
     description: 블랙리스트 관련
   - name: board
@@ -15,6 +17,23 @@ tags:
   - name: push
     description: 푸쉬 알람 관련
 paths:
+  /file:
+    post:
+      tags: [file]
+      description: 파일 업로드
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+
   /login:
     post:
       summary: (개발중)

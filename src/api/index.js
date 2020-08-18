@@ -6,6 +6,7 @@ import blacklist from './routes/blacklist';
 import popup from './routes/popup';
 import loginout from './routes/loginout';
 import authUser from './routes/authUser';
+import file from './routes/file';
 
 export default () => {
   const router = express.Router();
@@ -16,5 +17,6 @@ export default () => {
   popup(router);
   loginout(router);
   authUser(router);
+  file(router);
   return router;
 };
