@@ -21,7 +21,7 @@ class CommentRepository {
   }
 
   async delete(commentId) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('delete from comment where board_id = ?', [commentId]);
     return rows;
   }
 }
