@@ -96,8 +96,8 @@ export default (router) => {
 
   route.put('/:boardId/comment/:commentId', async (req, res) => {
     const { commentId } = req.params;
-    const { comment } = req.body;
-    const data = await boardService.createComment(commentId, comment);
+    const { content } = req.body;
+    const data = await boardService.putComment(commentId, content);
     res.json(data);
   });
 

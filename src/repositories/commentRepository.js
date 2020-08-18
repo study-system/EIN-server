@@ -11,7 +11,7 @@ class CommentRepository {
   }
 
   async put(commentId, comment) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('update comment set content = ? where id= ?', [comment, commentId]);
     return rows;
   }
 
