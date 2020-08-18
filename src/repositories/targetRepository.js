@@ -6,7 +6,7 @@ class TargetRepository {
   }
 
   async list() {
-    const [rows] = await this.pool.query('select * from target');
+    const [rows] = await this.pool.execute('select * from target');
     return rows;
   }
 }

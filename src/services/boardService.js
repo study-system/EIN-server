@@ -78,9 +78,9 @@ class BoardService {
     };
   }
 
-  async createComment(boardId, userEmail, comment) {
+  async createComment(boardId, userId, comment) {
     try {
-      await this.commentRepository.create(boardId, userEmail, comment);
+      await this.commentRepository.create(boardId, userId, comment);
     } catch (error) {
       return false;
     }
@@ -89,12 +89,18 @@ class BoardService {
 
   async putComment(commentId, comment) {
     const result = await this.commentRepository.put(commentId, comment);
-    return result;
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 
   async deleteComment(commentId) {
     const result = await this.commentRepository.delete(commentId);
-    return result;
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 }
 

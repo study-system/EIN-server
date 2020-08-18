@@ -36,7 +36,6 @@ paths:
 
   /login:
     post:
-      summary: (개발중)
       tags: [login/out]
       responses:
         '200':
@@ -53,11 +52,10 @@ paths:
                   example: myks790@gmail.com
                 password:
                   type: string
-                  example: 1234
+                  example: 비밀번호
 
   /logout:
     get:
-      summary: (개발중)
       tags: [login/out]
       responses:
         '200':
@@ -68,8 +66,10 @@ paths:
       summary: 인증 회원 가입 (개발중, db comany_number 수정 필요)
       tags: [user]
       responses:
-        '200':
+        '201':
           description: OK
+        '400':
+          description: 예외 발생
       requestBody:
         content:
           application/json:
@@ -126,11 +126,13 @@ paths:
 
   /user:
     post:
-      summary: 회원 가입 (개발중)
+      summary: 회원 가입
       tags: [user]
       responses:
-        '200':
+        '201':
           description: OK
+        '400':
+          description: 이미 존재하는 email 등 예외 발생시
       requestBody:
         content:
           application/json:
@@ -179,7 +181,7 @@ paths:
 
   /user/{email}:
     get:
-      summary: "유저정보를 반환함 (수정 필요 : pw, location ,id, phone(- 빼기) )"
+      summary: "유저정보를 반환함 (수정 필요 : pw 빼기 필요한 정보만 남기기 )"
       tags: [user]
       responses:
         '200':
@@ -449,7 +451,7 @@ paths:
           description: "target id(1: 성인, 2: 유아, 3: 청소년)"
           example: "1"
     post:
-      summary: 게시글 생성
+      summary: 게시글 생성 (db 필드 imageUrl 필요)
       tags: [board]
       responses:
         '201':
@@ -568,7 +570,7 @@ paths:
   /blacklist:
     get:
       tags: [blacklist]
-      summary: 블랙리스트 목록을 반환함 (개발중 db or 문서 수정 필요 동의 여부 관련, user_email과 blacklist_id에서 email, id 중 하나로 통일 필요)
+      summary: 블랙리스트 목록을 반환함
       responses:
         '200':
           description: OK
@@ -614,10 +616,16 @@ paths:
                     example: 1
       parameters:
         - name: status
-          description: 동의여부(대기, 동의, 거부)
+          description: 차단 여부(null, yes, no)
           in: query
           schema:
             type: string
+            example: null
+            enum:
+              - null
+              - yes
+              - no
+
         - name: page
           description: 'default: 1'
           in: query
@@ -632,7 +640,7 @@ paths:
           example: 10
 
     post:
-      summary: 블랙리스트 추가 (개발중)
+      summary: 블랙리스트 추가
       tags: [blacklist]
       responses:
         '201':
@@ -652,14 +660,14 @@ paths:
                 reportedUser:
                   type: string
                   format: email
-                  example: spam@user.com
+                  example: swlee292@naver.com
                 content:
                   type: string
                   example: 욕설등 부적절한 발언을 해서 신고합니다.
                 
   /blacklist/{blacklistId}:
     put:
-      summary: 블랙리스트 status 수정 (개발중, db status 관련 수정 필요)
+      summary: 블랙리스트 status 수정
       tags: [blacklist]
       responses:
         '200':
@@ -756,7 +764,7 @@ paths:
 
     get:
       tags: [board]
-      summary: 익명 댓글 목록을 반환함 (개발중 wirterFlag 관련 db 수정 필요  userEmail )
+      summary: 익명 댓글 목록을 반환함 (개발중  !!!누나 wirterFlag를 그냥 sql로 만들어줘요~ ㅎㅎ!!! )
       responses:
         '200':
           description: OK
@@ -773,12 +781,12 @@ paths:
                         id:
                           type: integer
                           example: 1
-                        comment:
+                        content:
                           type: string
                           example: 졸업자인데 참여 가능한가요?
                         wirterFlag:
                           type: boolean
-                          example: false
+                          example: 1
                           description: 게시글 작성자 여부 확인 플래그
 
     post:
@@ -795,11 +803,10 @@ paths:
             schema:
               type: object
               properties:
-                userEmail:
-                  type: string
-                  format: email
-                  example: myks790@gmail.com
-                comment:
+                user_id:
+                  type: integer
+                  example: 1
+                content:
                   type: string
                   example: 졸업자인데 참여 가능한가요?
   
@@ -820,11 +827,13 @@ paths:
           type: integer
         example: 1       
     put:
-      summary: 익명댓글 내용 수정 (개발중)
+      summary: 익명댓글 내용 수정
       tags: [board]
       responses:
-        '200':
+        '204':
           description: OK
+        '404':
+          description: not found
       requestBody:
         content:
           application/json:
@@ -833,13 +842,14 @@ paths:
               properties:
                 content:
                   type: string
-                  description: 동의, 거부 만 선택 가능(기본값은 대기)
                   example: 조기졸업인데 참여 가능한가요?
               
     delete:
-      summary: 익명댓글 내용 삭제 (개발중)
+      summary: 익명댓글 내용 삭제 (개발중 sql 버그 수정 필요)
       tags: [board]
       responses:
-        '200':
+        '204':
           description: OK
+        '404':
+          description: not found
 

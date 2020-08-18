@@ -6,7 +6,7 @@ class MajorRepository {
   }
 
   async list() {
-    const [rows] = await this.pool.query('SELECT * FROM major');
+    const [rows] = await this.pool.execute('SELECT * FROM major');
     return rows;
   }
 }

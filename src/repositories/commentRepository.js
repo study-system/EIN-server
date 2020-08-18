@@ -6,22 +6,22 @@ class CommentRepository {
   }
 
   async list(boardId) {
-    const [rows] = await this.pool.query('select * from comment where board_id = ?', [boardId]);
+    const [rows] = await this.pool.execute('select * from comment where board_id = ?', [boardId]);
     return rows;
   }
 
   async put(commentId, comment) {
-    const [rows] = await this.pool.query('update comment set content = ? where id= ?', [comment, commentId]);
+    const [rows] = await this.pool.execute('update comment set content = ? where id= ?', [comment, commentId]);
     return rows;
   }
 
-  async create(boardId, userEmail, comment) {
-    const [rows] = await this.pool.query('INSERT INTO study_db.comment(board_id,comment, user_email) values(?,?,?)', [boardId, comment, userEmail]);
+  async create(boardId, userId, content) {
+    const [rows] = await this.pool.execute('INSERT INTO study_db.comment(board_id,content, user_id) values(?,?,?)', [boardId, content, userId]);
     return rows;
   }
 
   async delete(commentId) {
-    const [rows] = await this.pool.query('delete from comment where board_id = ?', [commentId]);
+    const [rows] = await this.pool.execute('delete from comment where board_id = ?', [commentId]);
     return rows;
   }
 }

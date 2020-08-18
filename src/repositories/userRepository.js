@@ -6,17 +6,17 @@ class UserRepository {
   }
 
   async get(email) {
-    const [rows] = await this.pool.query('select * from user where email=?', [email]);
+    const [rows] = await this.pool.execute('select * from user where email=?', [email]);
     return rows;
   }
 
   async update(password, nickname, phone, address, detailAddress) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.execute('');
     return rows;
   }
 
   async getSessionInfo(email) {
-    const [rows] = await this.pool.query('select id,email,password,role from user where email=?;', [email]);
+    const [rows] = await this.pool.execute('select id,email,password,role from user where email=?;', [email]);
     return rows[0];
   }
 
@@ -25,7 +25,7 @@ class UserRepository {
   }
 
   async signUp(email, password, nickname, address, detailAddress, phone, pushAgree, role, name, location) {
-    const [rows] = await this.pool.query(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, role, name, location, null]);
+    const [rows] = await this.pool.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, role, name, location, null]);
     return rows;
   }
 
@@ -37,14 +37,14 @@ class UserRepository {
   async signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website) {
     const conn = await this.pool.getConnection();
     await conn.query('insert into ');
-    const authUserId = await conn.query('SELECT LAST_INSERT_ID();');
+    const authUserId = await conn.execute('SELECT LAST_INSERT_ID();');
     console.log(authUserId[0][0]['LAST_INSERT_ID()']);
-    await conn.query(this.getInsertUserSql());
+    await conn.execute(this.getInsertUserSql());
     this.pool.releaseConnection(conn);
   }
 
   async authUser(userId) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.execute('');
     return rows;
   }
 }

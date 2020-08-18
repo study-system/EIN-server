@@ -4,8 +4,10 @@ export default {
     const keys = Object.keys(fields);
     const condition = [];
     keys.forEach((o) => {
-      if (fields[o] !== undefined) {
-        condition.push(`${o}=${fields[o]}`);
+      if (`'${fields[o]}'` === "'null'") {
+        condition.push(`${o} is null`);
+      } else if (fields[o] !== undefined) {
+        condition.push(`${o}='${fields[o]}'`);
       }
     });
     if (condition.length === 0) return '';

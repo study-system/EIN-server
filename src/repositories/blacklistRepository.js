@@ -1,4 +1,5 @@
 import pool from '../loaders/mysqlLoader';
+import sqlSupporter from '../utils/sqlSupporter';
 
 class BlacklistRepository {
   constructor(dbPool) {
@@ -6,23 +7,30 @@ class BlacklistRepository {
   }
 
   async list(status, page, pageSize) {
-    const [rows] = await this.pool.query('select * from blacklist');
+    const whSql = sqlSupporter.genericAndfilter({
+      agree: status,
+    });
+    const limit = sqlSupporter.convertPageToLimit(page, pageSize);
+    const [rows] = await this.pool.execute(`select * from blacklist ${whSql} order by blacklist.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 
   async put(blacklistId, status) {
-    const [rows] = await this.pool.query('update blacklist set agree = ? where id= ? ', [status, blacklistId]);
+    const [rows] = await this.pool.execute('update blacklist set agree = ? where id= ? ', [status, blacklistId]);
     return rows;
   }
 
   async create(reporter, reportedUser, content) {
-    const [rows] = await this.pool.query('insert into blacklist (user_email,blacklist_email,content) values (?,?,?);', [reporter, reportedUser, content]);
+    const [rows] = await this.pool.execute('insert into blacklist (user_email,blacklist_email,content) values (?,?,?);', [reporter, reportedUser, content]);
     return rows;
   }
 
   async size(status) {
-    // const [rows] = await this.pool.query('');
-    return 9999 || rows[0]['COUNT(*)'];
+    const whSql = sqlSupporter.genericAndfilter({
+      agree: status,
+    });
+    const [rows] = await this.pool.execute(`SELECT COUNT(*) FROM blacklist ${whSql}`);
+    return rows[0]['COUNT(*)'];
   }
 }
 

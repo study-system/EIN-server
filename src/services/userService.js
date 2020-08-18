@@ -14,7 +14,13 @@ class UserService {
   }
 
   async update(email, password, nickname, phone, address, detailAddress) {
-    await this.userRepository.update(email, password, nickname, phone, address, detailAddress);
+    try {
+      const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
+      await this.userRepository.update(email, hashedPw, nickname, phone, address, detailAddress);
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 
   async verify(email, password) {
@@ -29,13 +35,23 @@ class UserService {
   }
 
   async signUp(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location) {
-    const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
-    await this.userRepository.signUp(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, role, name, location);
+    try {
+      const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
+      await this.userRepository.signUp(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, role, name, location);
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 
   async signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website) {
-    const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
-    await this.userRepository.signUpAuthUser(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website);
+    try {
+      const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
+      await this.userRepository.signUpAuthUser(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website);
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 }
 

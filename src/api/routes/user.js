@@ -12,8 +12,12 @@ export default (router) => {
     const {
       email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id,
     } = req.body;
-    const data = await userService.signUp(email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id);
-    res.json(data);
+    const success = await userService.signUp(email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id);
+    if (success) {
+      res.status(201).end();
+    } else {
+      res.status(400).end();
+    }
   });
 
   route.get('/:email', validateUtil.email, async (req, res) => {
@@ -27,7 +31,11 @@ export default (router) => {
     const {
       password, nickname, phone, address, detailAddress,
     } = req.body;
-    const data = await userService.update(email, password, nickname, phone, address, detailAddress);
-    res.json(data);
+    const success = await userService.update(email, password, nickname, phone, address, detailAddress);
+    if (success) {
+      res.status(204).end();
+    } else {
+      res.status(404).end();
+    }
   });
 };
