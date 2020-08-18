@@ -16,7 +16,7 @@ class BoardRepository {
       location_id: location, major_id: major, target_id: target,
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
-    const [rows] = await this.pool.query(`select board.id,title,nickname from board join user on user_id = user.id ${whSql}  order by board.id desc LIMIT ?, ?`, limit);
+    const [rows] = await this.pool.query(`SELECT board.id,title,views,nickname, count(good.id) as likes FROM board join user on user_id = user.id left join good on board.id = good.board_id ${whSql} group by board.id order by board.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 
