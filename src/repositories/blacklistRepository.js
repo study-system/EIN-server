@@ -11,12 +11,12 @@ class BlacklistRepository {
   }
 
   async put(blacklistId, status) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('update blacklist set agree = ? where id= ? ', [status, blacklistId]);
     return rows;
   }
 
   async create(reporter, reportedUser, content) {
-    const [rows] = await this.pool.query('');
+    const [rows] = await this.pool.query('insert into blacklist (user_email,blacklist_email,content) values (?,?,?);', [reporter, reportedUser, content]);
     return rows;
   }
 

@@ -665,8 +665,11 @@ paths:
               properties:
                 status:
                   type: string
-                  description: 동의, 거부 만 선택 가능(기본값은 대기)
-                  example: '거부'
+                  description: yes, no 만 선택 가능(기본값은 null)
+                  example: 'yes'
+                  enum:
+                    - yes
+                    - no
       parameters:
         - name: blacklistId
           description: id
