@@ -15,10 +15,12 @@ class UserRepository {
     return rows;
   }
 
-  async getPassword(email) {
+  async getSessionInfo(email) {
     const [rows] = await this.pool.query('select * from user;');
     // return rows;
-    return '$2b$13$q29Yjl9asfamcjCWYzhT9uR0MtBbi7zLQ9DwT8zqtyVfmS8BcxhVu';
+    return {
+      id: '1', email: 'myks790@gmail.com', password: '$2b$13$q29Yjl9asfamcjCWYzhT9uR0MtBbi7zLQ9DwT8zqtyVfmS8BcxhVu', role: '인증',
+    };
   }
 
   getInsertUserSql(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, authUserId) {

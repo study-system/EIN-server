@@ -8,9 +8,12 @@ export default (router) => {
 
   route.get('/logout', async (req, res) => {
     req.logout();
+    req.session.save(() => {
+      res.json({ message: 'logout success' });
+    });
   });
 
-  route.post('/login', passport.authenticate('local'), async (req, res) => {
+  route.post('/login', passport.authenticate('basic'), async (req, res) => {
     res.json({ message: 'login success' });
   });
 };

@@ -2,21 +2,26 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import userService from '../services/userService';
 
-passport.serializeUser((user, done) => done(null, user.email));
-passport.deserializeUser((user, done) => done(null, user));
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
 
-passport.use(new LocalStrategy(
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.use('basic', new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
     session: true,
   },
   async (email, password, done) => {
-    const success = await userService.verify(email, password);
-    if (!success) {
+    const user = await userService.verify(email, password);
+    if (!user) {
       return done(null, false, { message: 'Incorrect password' });
     }
-    return done(null, { email });
+    return done(null, { id: user.id, email: user.email, role: user.role });
   },
 ));
 
