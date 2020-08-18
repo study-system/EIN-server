@@ -13,7 +13,7 @@ class BoardRepository {
 
   async list(auth, location, major, target, page, pageSize) {
     const whSql = sqlSupporter.genericAndfilter({
-      location_id: location, major_id: major, target_id: target,
+      'board.location_id': location, major_id: major, target_id: target,
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
     const [rows] = await this.pool.query(`SELECT board.id,title,views,nickname, count(good.id) as likes FROM board join user on user_id = user.id left join good on board.id = good.board_id ${whSql} group by board.id order by board.id desc LIMIT ?, ?`, limit);
