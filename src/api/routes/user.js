@@ -30,9 +30,9 @@ export default (router) => {
   route.put('/:email', roleValidateUtil.isUser, dataValidateUtil.email, async (req, res) => {
     const { email } = req.params;
     const {
-      password, nickname, phone, address, detailAddress,
+      password, nickname, phone, address, addressDetail, pushAgree,
     } = req.body;
-    const success = await userService.update(email, password, nickname, phone, address, detailAddress);
+    const success = await userService.update(email, password, nickname, phone, address, addressDetail, pushAgree);
     if (success) {
       res.status(204).end();
     } else {

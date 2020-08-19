@@ -6,12 +6,12 @@ class UserRepository {
   }
 
   async get(email) {
-    const [rows] = await this.pool.execute('select * from user where email=?', [email]);
+    const [rows] = await this.pool.execute('select email,nickname,phone,address,detail_address,role,push_agree,email_check,authuser_id  from user where email=?', [email]);
     return rows;
   }
 
-  async update(password, nickname, phone, address, detailAddress) {
-    const [rows] = await this.pool.execute('');
+  async update(email, password, nickname, phone, address, detailAddress, pushAgree) {
+    const [rows] = await this.pool.execute('update user set password = ?, nickname = ?, phone = ?, address = ?, detail_address = ?, push_agree = ? where email = ?', [password, nickname, phone, address, detailAddress, pushAgree, email]);
     return rows;
   }
 
@@ -25,7 +25,7 @@ class UserRepository {
   }
 
   async signUp(email, password, nickname, address, detailAddress, phone, pushAgree, name, location) {
-    const [rows] = await this.pool.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, name, location, null]);
+    const [rows] = await this.pool.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, '일반', name, location, null]);
     return rows;
   }
 
@@ -34,12 +34,16 @@ class UserRepository {
     return rows;
   }
 
-  async signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, name, location, company, companyNumber, position, website) {
+  async signUpAuthUser(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website) {
+    console.log(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website);
     const conn = await this.pool.getConnection();
-    await conn.query('insert into ');
+    await conn.query('insert into auth_user(company,company_number,position,website) values(?,?,?,?)', [company, companyNumber, position, website]);
     const authUserId = await conn.execute('SELECT LAST_INSERT_ID();');
     console.log(authUserId[0][0]['LAST_INSERT_ID()']);
-    await conn.execute(this.getInsertUserSql());
+    console.log(this.getInsertUserSql());
+    console.log(email, password, nickname, address, detailAddress, phone, pushAgree, '인증', name, locationId, authUserId);
+    console.log('asddas');
+    await conn.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, '인증', name, locationId, authUserId]);
     this.pool.releaseConnection(conn);
   }
 
