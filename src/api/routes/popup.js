@@ -12,15 +12,23 @@ export default (router) => {
     res.json(data);
   });
 
-  route.put('/', async (req, res) => {
+  route.put('/', validateUtil.isAdmin, async (req, res) => {
     const { active } = req.body;
-    const data = await popupService.changeActive(active);
-    res.json(data);
+    const success = await popupService.changeActive(active);
+    if (success) {
+      res.status(201).end();
+    } else {
+      res.status(400).end();
+    }
   });
 
-  route.post('/', async (req, res) => {
+  route.post('/', validateUtil.isAdmin, async (req, res) => {
     const { image } = req.body;
-    const data = await popupService.changeImage(image);
-    res.json(data);
+    const success = await popupService.changeImage(image);
+    if (success) {
+      res.status(201).end();
+    } else {
+      res.status(400).end();
+    }
   });
 };

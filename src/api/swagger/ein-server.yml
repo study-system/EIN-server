@@ -63,7 +63,7 @@ paths:
 
   /authUser:
     post:
-      summary: 인증 회원 가입 (개발중, db comany_number 수정 필요)
+      summary: 인증 회원 가입
       tags: [user]
       responses:
         '201':
@@ -687,7 +687,7 @@ paths:
   /popup:
     get:
       tags: [popup]
-      summary: 홍보 팝업 조회 (개발중)
+      summary: 홍보 팝업 조회
       responses:
         '200':
           description: OK
@@ -698,7 +698,7 @@ paths:
                 properties:
                   image:
                     type: string
-                    example: myks790.iptime.org/images/popup/asldfkjafs.png
+                    example: https://storage.googleapis.com/ein-server.appspot.com/images/1597847035568캡처.PNG
                   active:
                     type: string
                     enum:
@@ -707,7 +707,7 @@ paths:
                     example: yes
 
     post:
-      summary: 광고 이미지 변경 (개발중)
+      summary: 광고 이미지 변경
       tags: [popup]
       responses:
         '200':
@@ -720,10 +720,10 @@ paths:
               properties:
                 image:
                   type: string
-                  example: myks790.iptime.org/images/popup/asldfkjafs.png
+                  example: https://storage.googleapis.com/ein-server.appspot.com/images/1597847035568캡처.PNG
                 
     put:
-      summary: 팝업 활성화 설정 (개발중)
+      summary: 팝업 활성화 설정
       tags: [popup]
       responses:
         '200':
@@ -754,7 +754,7 @@ paths:
 
     get:
       tags: [board]
-      summary: 익명 댓글 목록을 반환함 (개발중  !!!누나 wirterFlag를 그냥 sql로 만들어줘요~ ㅎㅎ!!! )
+      summary: 익명 댓글 목록을 반환함
       responses:
         '200':
           description: OK
@@ -835,7 +835,7 @@ paths:
                   example: 조기졸업인데 참여 가능한가요?
               
     delete:
-      summary: 익명댓글 내용 삭제 (개발중 sql 버그 수정 필요)
+      summary: 익명댓글 내용 삭제 
       tags: [board]
       responses:
         '204':

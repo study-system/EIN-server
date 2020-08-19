@@ -10,12 +10,12 @@ class PopupRepository {
     return rows;
   }
 
-  async put(active) {
+  async changeActive(active) {
     const [rows] = await this.pool.execute('update popup set active = ? where id = 1', [active]);
     return rows;
   }
 
-  async create(imageUrl) {
+  async changeImage(imageUrl) {
     const [rows] = await this.pool.execute('update popup set image = ? where id = 1', [imageUrl]);
     return rows;
   }

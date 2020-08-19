@@ -7,17 +7,23 @@ class PopupService {
 
   async get() {
     const list = await this.popupRepository.get();
-    return list;
+    return list[0];
   }
 
   async changeImage(imageUrl) {
-    const result = await this.popupRepository.create(imageUrl);
-    return result;
+    const result = await this.popupRepository.changeImage(imageUrl);
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 
   async changeActive(active) {
-    const result = await this.popupRepository.put(active);
-    return result;
+    const result = await this.popupRepository.changeActive(active);
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
   }
 }
 
