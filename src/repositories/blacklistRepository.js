@@ -6,7 +6,7 @@ class BlacklistRepository {
     this.pool = dbPool;
   }
 
-  async list(status, page, pageSize) {
+  async list(status = '', page = '', pageSize = '') {
     const whSql = sqlSupporter.genericAndfilter({
       agree: status,
     });
@@ -15,17 +15,17 @@ class BlacklistRepository {
     return rows;
   }
 
-  async put(blacklistId, status) {
+  async put(blacklistId = '', status = '') {
     const [rows] = await this.pool.execute('update blacklist set agree = ? where id= ? ', [status, blacklistId]);
     return rows;
   }
 
-  async create(reporter, reportedUser, content) {
+  async create(reporter = '', reportedUser = '', content = '') {
     const [rows] = await this.pool.execute('insert into blacklist (user_email,blacklist_email,content) values (?,?,?);', [reporter, reportedUser, content]);
     return rows;
   }
 
-  async size(status) {
+  async size(status = '') {
     const whSql = sqlSupporter.genericAndfilter({
       agree: status,
     });
