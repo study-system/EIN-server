@@ -18,8 +18,8 @@ export default (router) => {
   });
 
   route.post('/', async (req, res) => {
-    const { imageUrl } = req.body;
-    const data = await popupService.changeImage(imageUrl);
+    const { image } = req.body;
+    const data = await popupService.changeImage(image);
     res.json(data);
   });
 };

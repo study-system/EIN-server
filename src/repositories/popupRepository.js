@@ -6,17 +6,17 @@ class PopupRepository {
   }
 
   async get() {
-    const [rows] = await this.pool.execute('');
+    const [rows] = await this.pool.execute('select * from popup');
     return rows;
   }
 
-  async put(imageUrl) {
-    const [rows] = await this.pool.execute('');
+  async put(active) {
+    const [rows] = await this.pool.execute('update popup set active = ? where id = 1', [active]);
     return rows;
   }
 
-  async create(active) {
-    const [rows] = await this.pool.execute('');
+  async create(imageUrl) {
+    const [rows] = await this.pool.execute('update popup set image = ? where id = 1', [imageUrl]);
     return rows;
   }
 }
