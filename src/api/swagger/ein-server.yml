@@ -95,13 +95,13 @@ paths:
                 address:
                   type: string
                   example: 제주도 특별자치도 제주시 진남로 99길 10
-                detail address:
+                detailAddress:
                   type: string
                   example: 101호
-                locaion:
+                locationId:
                   type: integer
                   example: 17
-                push agree:
+                pushAgree:
                   type: string
                   example: yes
                   enum:
@@ -110,7 +110,7 @@ paths:
                 company:
                   type: string
                   example: 회~사
-                company_number:
+                companyNumber:
                   type: string
                   example: 06412345678
                 position:

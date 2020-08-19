@@ -9,9 +9,9 @@ export default (router) => {
 
   router.post('/authUser', async (req, res) => {
     const {
-      email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website,
+      email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website,
     } = req.body;
-    const success = await userService.signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, role, name, location, company, companyNumber, position, website);
+    const success = await userService.signUpAuthUser(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website);
     if (success) {
       res.status(201).end();
     } else {
