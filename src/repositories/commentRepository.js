@@ -6,7 +6,7 @@ class CommentRepository {
   }
 
   async list(boardId) {
-    const [rows] = await this.pool.execute('select * from comment where board_id = ?', [boardId]);
+    const [rows] = await this.pool.execute('SELECT comment.id,comment.content,board.user_id =comment.user_id as writerflag FROM board INNER JOIN comment ON board.id = study_db.comment.board_id where board_id = ?', [boardId]);
     return rows;
   }
 
@@ -21,7 +21,7 @@ class CommentRepository {
   }
 
   async delete(commentId) {
-    const [rows] = await this.pool.execute('delete from comment where board_id = ?', [commentId]);
+    const [rows] = await this.pool.execute('delete from comment where id = ?', [commentId]);
     return rows;
   }
 }

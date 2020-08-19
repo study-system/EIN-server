@@ -6,12 +6,12 @@ class UserRepository {
   }
 
   async get(email) {
-    const [rows] = await this.pool.execute('select * from user where email=?', [email]);
+    const [rows] = await this.pool.execute('select email,nickname,phone,address,detail_address,role,push_agree,email_check,authuser_id  from user where email=?', [email]);
     return rows;
   }
 
-  async update(password, nickname, phone, address, detailAddress) {
-    const [rows] = await this.pool.execute('');
+  async update(email, password, nickname, phone, address, detailAddress, pushAgree) {
+    const [rows] = await this.pool.execute('update user set password = ?, nickname = ?, phone = ?, address = ?, detail_address = ?, push_agree = ? where email = ?', [password, nickname, phone, address, detailAddress, pushAgree, email]);
     return rows;
   }
 

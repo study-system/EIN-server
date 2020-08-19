@@ -7,7 +7,7 @@ class BoardRepository {
   }
 
   async get(boardId) {
-    const [rows] = await this.pool.execute('select title,content,user.name as "writer",location.name as "location",start_date,end_date from board join user on board.user_id = user.id join location on board.location_id = location.id where board.id=?', [boardId]);
+    const [rows] = await this.pool.execute('select title,content,board.location_id,major_id,target_id,user.name as "writer",location.name as "location",start_date,end_date from board join user on board.user_id = user.id join location on board.location_id = location.id where board.id=?', [boardId]);
     return rows;
   }
 

@@ -14,10 +14,10 @@ class UserService {
     return result[0];
   }
 
-  async update(email, password, nickname, phone, address, detailAddress) {
+  async update(email, password, nickname, phone, address, detailAddress, pushAgree) {
     try {
       const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
-      await this.userRepository.update(email, hashedPw, nickname, phone, address, detailAddress);
+      await this.userRepository.update(email, hashedPw, nickname, phone, address, detailAddress, pushAgree);
     } catch (error) {
       return false;
     }
