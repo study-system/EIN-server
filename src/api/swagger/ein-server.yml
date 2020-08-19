@@ -171,7 +171,7 @@ paths:
 
   /user/{email}:
     get:
-      summary: "유저정보를 반환함 (수정 필요 : pw 빼기 필요한 정보만 남기기 )"
+      summary: "유저정보를 반환함"
       tags: [user]
       responses:
         '200':
