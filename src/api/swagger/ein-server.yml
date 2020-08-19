@@ -234,7 +234,7 @@ paths:
                     example: error message
 
     put:
-      summary: 유저 정보를 수정함 (개발중) 
+      summary: 유저 정보를 수정함 
       tags: [user]
       responses:
         '200':
