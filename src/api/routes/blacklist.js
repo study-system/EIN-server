@@ -1,18 +1,19 @@
 import express from 'express';
 import blacklistService from '../../services/blacklistService';
+import validateUtil from '../../utils/validateUtil';
 
 const route = express.Router();
 
 export default (router) => {
   router.use('/blacklist', route);
 
-  route.get('/', async (req, res) => {
+  route.get('/', validateUtil.isAdmin, async (req, res) => {
     const { status, page, pageSize } = req.query;
     const data = await blacklistService.listblacklist(status, page, pageSize);
     res.json(data);
   });
 
-  route.post('/', async (req, res) => {
+  route.post('/', validateUtil.isUser, async (req, res) => {
     const { reporter, reportedUser, content } = req.body;
     const success = await blacklistService.report(reporter, reportedUser, content);
     if (success) {
@@ -22,7 +23,7 @@ export default (router) => {
     }
   });
 
-  route.put('/:blacklistId', async (req, res) => {
+  route.put('/:blacklistId', validateUtil.isAdmin, async (req, res) => {
     const { blacklistId } = req.params;
     const { status } = req.body;
     const success = await blacklistService.changeStatus(blacklistId, status);

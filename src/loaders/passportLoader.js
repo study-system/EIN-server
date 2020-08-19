@@ -21,6 +21,10 @@ passport.use('basic', new LocalStrategy(
     if (!user) {
       return done(null, false, { message: 'Incorrect password' });
     }
+    if (!user && user.email_check === 'no') {
+      return done(null, false, { message: 'email not auth' });
+    }
+
     return done(null, { id: user.id, email: user.email, role: user.role });
   },
 ));

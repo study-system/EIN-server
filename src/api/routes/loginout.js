@@ -1,12 +1,13 @@
 import express from 'express';
 import passport from 'passport';
+import validateUtil from '../../utils/validateUtil';
 
 const route = express.Router();
 
 export default (router) => {
   router.use(route);
 
-  route.get('/logout', async (req, res) => {
+  route.get('/logout', validateUtil.isUser, async (req, res) => {
     req.logout();
     req.session.save(() => {
       res.json({ message: 'logout success' });

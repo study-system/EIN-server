@@ -1,5 +1,6 @@
 import express from 'express';
 import boardService from '../../services/boardService';
+import validateUtil from '../../utils/validateUtil';
 
 const route = express.Router();
 
@@ -29,7 +30,14 @@ export default (router) => {
     res.json(data);
   });
 
-  route.post('/', async (req, res) => {
+  route.post('/', (req, res, next) => {
+    const { auth } = req.body;
+    if (auth === 'yes') {
+      validateUtil.isAuth(req, res, next);
+    } else {
+      validateUtil.isUser(req, res, next);
+    }
+  }, async (req, res) => {
     const {
       user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
     } = req.body;
@@ -43,7 +51,7 @@ export default (router) => {
     }
   });
 
-  route.put('/:boardId', async (req, res) => {
+  route.put('/:boardId', validateUtil.isUser, async (req, res) => {
     const { boardId } = req.params;
     const {
       title, start_date, end_date, content, location_id, major_id, target_id,
@@ -67,7 +75,7 @@ export default (router) => {
     res.json(data[0]);
   });
 
-  route.delete('/:boardId', async (req, res) => {
+  route.delete('/:boardId', validateUtil.isUser, async (req, res) => {
     const { boardId } = req.params;
     const success = await boardService.deleteBoard(boardId);
     if (success) {
@@ -83,7 +91,7 @@ export default (router) => {
     res.json(data);
   });
 
-  route.post('/:boardId/comment', async (req, res) => {
+  route.post('/:boardId/comment', validateUtil.isUser, async (req, res) => {
     const { boardId } = req.params;
     const { user_id, content } = req.body;
     const success = await boardService.createComment(boardId, user_id, content);
@@ -94,7 +102,7 @@ export default (router) => {
     }
   });
 
-  route.put('/:boardId/comment/:commentId', async (req, res) => {
+  route.put('/:boardId/comment/:commentId', validateUtil.isUser, async (req, res) => {
     const { commentId } = req.params;
     const { content } = req.body;
     const success = await boardService.putComment(commentId, content);
@@ -105,7 +113,7 @@ export default (router) => {
     }
   });
 
-  route.delete('/:boardId/comment/:commentId', async (req, res) => {
+  route.delete('/:boardId/comment/:commentId', validateUtil.isUser, async (req, res) => {
     const { commentId } = req.params;
     const success = await boardService.deleteComment(commentId);
     if (success) {

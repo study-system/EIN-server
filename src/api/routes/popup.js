@@ -1,10 +1,11 @@
 import express from 'express';
 import popupService from '../../services/popupService';
+import validateUtil from '../../utils/validateUtil';
 
 const route = express.Router();
 
 export default (router) => {
-  router.use('/popup', route);
+  router.use('/popup', validateUtil.isAdmin, route);
 
   route.get('/', async (req, res) => {
     const data = await popupService.get();

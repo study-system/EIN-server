@@ -161,13 +161,6 @@ paths:
                 detail_address:
                   type: string
                   example: 101호
-                role:
-                  type: string
-                  example: 일반
-                  enum:
-                    - 일반
-                    - 인증
-                    - 관리자
                 location_id:
                   type: integer
                   example: 17

@@ -1,7 +1,8 @@
 import express from 'express';
 
 import userService from '../../services/userService';
-import validateUtil from '../../utils/validateUtil';
+import dataValidateUtil from '../../utils/dataValidateUtil';
+import roleValidateUtil from '../../utils/validateUtil';
 
 const route = express.Router();
 
@@ -20,13 +21,13 @@ export default (router) => {
     }
   });
 
-  route.get('/:email', validateUtil.email, async (req, res) => {
+  route.get('/:email', roleValidateUtil.isUser, dataValidateUtil.email, async (req, res) => {
     const { email } = req.params;
     const data = await userService.get(email);
     res.json(data);
   });
 
-  route.put('/:email', validateUtil.email, async (req, res) => {
+  route.put('/:email', roleValidateUtil.isUser, dataValidateUtil.email, async (req, res) => {
     const { email } = req.params;
     const {
       password, nickname, phone, address, detailAddress,
