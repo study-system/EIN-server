@@ -46,17 +46,10 @@ class UserService {
     return true;
   }
 
-<<<<<<< HEAD
-  async signUpAuthUser(email, password, nickname, adress, detailAddress, phone, pushAgree, name, location, company, companyNumber, position, website) {
-    try {
-      const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
-      await this.userRepository.signUpAuthUser(email, hashedPw, nickname, adress, detailAddress, phone, pushAgree, name, location, company, companyNumber, position, website);
-=======
   async signUpAuthUser(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website) {
     try {
       const hashedPw = await bcrypt.hash(`${password}`, saltRounds);
       await this.userRepository.signUpAuthUser(email, hashedPw, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website);
->>>>>>> 862066224303aa842c7ffaf5d3f58a0ea0ebe7ed
     } catch (error) {
       console.log(error);
 
