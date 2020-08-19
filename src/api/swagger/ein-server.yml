@@ -118,10 +118,7 @@ paths:
                   example: 대리
                 website:
                   type: string
-                  example: yes
-                  enum:
-                    - yes
-                    - no
+                  example: 'http://equalda.com'
 
 
   /user:
@@ -154,7 +151,7 @@ paths:
                   example: 닉네임
                 phone:
                   type: string
-                  example: 01012345678
+                  example: '01012345678'
                 address:
                   type: string
                   example: 제주도 특별자치도 제주시 진남로 99길 10

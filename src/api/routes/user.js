@@ -11,9 +11,9 @@ export default (router) => {
 
   route.post('/', async (req, res) => {
     const {
-      email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id,
+      email, password, nickname, address, detail_address, phone, push_agree, name, location_id,
     } = req.body;
-    const success = await userService.signUp(email, password, nickname, address, detail_address, phone, push_agree, role, name, location_id);
+    const success = await userService.signUp(email, password, nickname, address, detail_address, phone, push_agree, name, location_id);
     if (success) {
       res.status(201).end();
     } else {

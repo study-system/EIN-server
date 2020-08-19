@@ -24,8 +24,8 @@ class UserRepository {
     return 'insert into user(email,password,nickname,address,detail_address,phone,push_agree,role,name,location_id,authuser_id) values(?,?,?,?,?,?,?,?,?,?,?)';
   }
 
-  async signUp(email, password, nickname, address, detailAddress, phone, pushAgree, name, location) {
-    const [rows] = await this.pool.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, '일반', name, location, null]);
+  async signUp(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId) {
+    const [rows] = await this.pool.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, '일반', name, locationId, null]);
     return rows;
   }
 
@@ -35,16 +35,11 @@ class UserRepository {
   }
 
   async signUpAuthUser(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website) {
-    console.log(email, password, nickname, address, detailAddress, phone, pushAgree, name, locationId, company, companyNumber, position, website);
     const conn = await this.pool.getConnection();
-    await conn.query('insert into auth_user(company,company_number,position,website) values(?,?,?,?)', [company, companyNumber, position, website]);
-    const authUserId = await conn.execute('SELECT LAST_INSERT_ID();');
-    console.log(authUserId[0][0]['LAST_INSERT_ID()']);
-    console.log(this.getInsertUserSql());
-    console.log(email, password, nickname, address, detailAddress, phone, pushAgree, '인증', name, locationId, authUserId);
-    console.log('asddas');
+    await conn.execute('insert into auth_user(company,company_number,position,website) values(?,?,?,?)', [company, companyNumber, position, website]);
+    const authUserId = (await conn.execute('SELECT LAST_INSERT_ID();'))[0][0]['LAST_INSERT_ID()'];
     await conn.execute(this.getInsertUserSql(), [email, password, nickname, address, detailAddress, phone, pushAgree, '인증', name, locationId, authUserId]);
-    this.pool.releaseConnection(conn);
+    conn.release();
   }
 
   async authUser(userId) {
