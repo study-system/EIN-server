@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import userRepository from '../repositories/userRepository';
+import authService from './authService';
 
-const saltRounds = 13;
+const saltRounds = 12;
 
 class UserService {
   constructor(userRepo) {
@@ -41,6 +42,7 @@ class UserService {
     } catch (error) {
       return false;
     }
+    authService.sendAuthEmail(email);
     return true;
   }
 
@@ -51,6 +53,7 @@ class UserService {
     } catch (error) {
       return false;
     }
+    authService.sendAuthEmail(email);
     return true;
   }
 }

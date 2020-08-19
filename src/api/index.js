@@ -7,6 +7,7 @@ import popup from './routes/popup';
 import loginout from './routes/loginout';
 import authUser from './routes/authUser';
 import file from './routes/file';
+import auth from './routes/auth';
 
 export default () => {
   const router = express.Router();
@@ -18,5 +19,6 @@ export default () => {
   loginout(router);
   authUser(router);
   file(router);
+  auth(router);
   return router;
 };

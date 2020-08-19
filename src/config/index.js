@@ -3,7 +3,6 @@ import db from './dbConfig';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 export default {
-
   port: process.env.PORT || 8080,
   api: {
     prefix: '',
@@ -21,4 +20,5 @@ export default {
     host: db.redis.host,
     port: db.redis.port,
   },
+  emailAuthHost: 'myks790.iptime.org:8082/auth/',
 };
