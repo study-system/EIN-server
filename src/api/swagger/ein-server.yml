@@ -390,15 +390,18 @@ paths:
                         writer:
                           type: string
                           example: 강상훈
-                  pageNumber:
-                    type: integer
-                    example: 1
-                  totalPages:
-                    type: integer
-                    example: 1
-                  pageSize:
-                    type: integer
-                    example: 10
+                  pageInfo:
+                    type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                        example: 1
+                      totalPages:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
       parameters:
         - name: auth
           in: query
@@ -598,12 +601,19 @@ paths:
                             - no
                             - waiting
                           example: waiting
-                  pageNumber:
-                    type: integer
-                    example: 1
-                  totalPages:
-                    type: integer
-                    example: 1
+                  pageInfo:
+                    type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                        example: 1
+                      totalPages:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+
       parameters:
         - name: status
           description: 차단 여부(null, yes, no)
