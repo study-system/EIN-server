@@ -25,7 +25,7 @@ class BlacklistRepository {
     return rows;
   }
 
-  async size(status = '') {
+  async size(status) {
     const whSql = sqlSupporter.genericAndfilter({
       agree: status,
     });
