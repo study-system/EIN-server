@@ -30,26 +30,20 @@ export default (router) => {
     res.json(data);
   });
 
-  route.post('/', (req, res, next) => {
-    const { auth } = req.body;
-    if (auth === 'yes') {
-      validateUtil.isAuth(req, res, next);
-    } else {
-      validateUtil.isUser(req, res, next);
-    }
-  }, async (req, res) => {
-    const {
-      user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
-    } = req.body;
-    const success = await boardService.createBoard(
-      user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
-    );
-    if (success) {
-      res.status(201).end();
-    } else {
-      res.status(400).end();
-    }
-  });
+  route.post('/', validateUtil.boardAuth,
+    async (req, res) => {
+      const {
+        user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
+      } = req.body;
+      const success = await boardService.createBoard(
+        user_id, title, start_date, end_date, content, location_id, major_id, target_id, auth,
+      );
+      if (success) {
+        res.status(201).end();
+      } else {
+        res.status(400).end();
+      }
+    });
 
   route.put('/:boardId', validateUtil.isUser, async (req, res) => {
     const { boardId } = req.params;
