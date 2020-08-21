@@ -6,7 +6,7 @@ class BlacklistRepository {
     this.pool = dbPool;
   }
 
-  async list(status = '', page = '', pageSize = '') {
+  async list(status, page = '', pageSize = '') {
     const whSql = sqlSupporter.genericAndfilter({
       agree: status,
     });

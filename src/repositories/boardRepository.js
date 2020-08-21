@@ -11,7 +11,7 @@ class BoardRepository {
     return rows;
   }
 
-  async list(auth = '', location = '', major = '', target = '', page = '', pageSize = '') {
+  async list(auth, location, major, target, page, pageSize) {
     const whSql = sqlSupporter.genericAndfilter({
       auth, 'board.location_id': location, major_id: major, target_id: target,
     });
