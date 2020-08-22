@@ -4,7 +4,10 @@ import passportLoader from './passportLoader';
 import sessionLoader from './sessionLoader';
 
 export default (app) => {
-  app.use(cors());
+  app.use(cors({
+    origin: ['myks790.iptime.org:8083'],
+    credentials: true,
+  }));
   sessionLoader(app);
   passportLoader(app);
   expressLoader(app);

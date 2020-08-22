@@ -1,11 +1,10 @@
 const validateUtil = {
   isAdmin: (req, res, next) => {
-    // if (!!req.user && req.user.role === '관리자') {
-    //   next();
-    // } else {
-    //   res.status(401).end();
-    // }
-    next();
+    if (!!req.user && req.user.role === '관리자') {
+      next();
+    } else {
+      res.status(401).end();
+    }
   },
 
   isAuth: (req, res, next) => {
