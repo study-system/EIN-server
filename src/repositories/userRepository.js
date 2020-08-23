@@ -21,9 +21,9 @@ class UserRepository {
     return rows[0];
   }
 
-  async listAuthUser(email_check, push_agree, location_id, page, pageSize) {
+  async listAuthUser(auth, email_check, push_agree, location_id, page, pageSize) {
     const whSql = sqlSupporter.genericAndfilter({
-      role: '인증', location_id, push_agree, email_check,
+      role: '인증', location_id, push_agree, email_check, auth,
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
     const [rows] = await this.pool.execute(`SELECT user.id,name,nickname,email, address, detail_address, email_check, push_agree, phone, company, company_number,website, auth FROM user join auth_user on authuser_id = auth_user.id ${whSql} order by user.id desc LIMIT ?, ?`, limit);

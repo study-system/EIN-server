@@ -191,6 +191,16 @@ paths:
                         type: integer
                         example: 10
     parameters:
+      - name: auth
+        in: query
+        required: true
+        schema:
+          type: string
+          example: yes
+          enum:
+            - yes
+            - no
+        description: 인증여부
       - name: email_check
         in: query
         required: true

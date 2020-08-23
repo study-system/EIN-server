@@ -10,9 +10,9 @@ class UserService {
     this.userRepository = userRepo;
   }
 
-  async listAuthUser(email_check, push_agree, location_id, page = 1, pageSize = 10) {
+  async listAuthUser(auth, email_check, push_agree, location_id, page = 1, pageSize = 10) {
     return Page(
-      await this.userRepository.listAuthUser(email_check, push_agree, location_id, page, pageSize),
+      await this.userRepository.listAuthUser(auth, email_check, push_agree, location_id, page, pageSize),
       page,
       await this.userRepository.size('인증'),
       pageSize,
