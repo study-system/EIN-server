@@ -459,12 +459,24 @@ paths:
                   location:
                     type: string
                     example: 제주특별자치도
+                  location_id:
+                    type: string
+                    example: 17
+                  major_id:
+                    type: string
+                    example: 1
+                  target_id:
+                    type: string
+                    example: 1
                   start_date:
                     type: string
                     example: 2020-07-01T09:12:28Z
                   end_date:
                     type: string
                     example: 2020-08-31T07:12:28Z
+                  auth:
+                    type: string
+                    example: no
         '404':
           description: 콘텐츠를 찾을 수 없음
     delete:
