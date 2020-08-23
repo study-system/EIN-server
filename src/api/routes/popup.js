@@ -5,7 +5,7 @@ import validateUtil from '../../utils/validateUtil';
 const route = express.Router();
 
 export default (router) => {
-  router.use('/popup', validateUtil.isAdmin, route);
+  router.use('/popup', route);
 
   route.get('/', async (req, res) => {
     const data = await popupService.get();
