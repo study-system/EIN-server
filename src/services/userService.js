@@ -34,6 +34,15 @@ class UserService {
     return true;
   }
 
+  async auth(authUserId, auth) {
+    try {
+      await this.userRepository.put(authUserId, auth);
+    } catch (error) {
+      return false;
+    }
+    return true;
+  }
+
   async verify(email, password) {
     try {
       const sessionInfo = await this.userRepository.getSessionInfo(email);

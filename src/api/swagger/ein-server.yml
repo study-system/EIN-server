@@ -140,6 +140,9 @@ paths:
                         id:
                           type: integer
                           example: 1
+                        authuser_id:
+                          type: integer
+                          example: 1
                         name:
                           type: string
                           example: 강상훈
@@ -239,6 +242,33 @@ paths:
           type: integer
         example: 17
 
+  /authUser/{authuser_id}:
+    put:
+      summary: 인증 요청 회원 인증 처리
+      tags: [user]
+      responses:
+        '204':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auth:
+                  type: string
+                  example: yes
+                  enum:
+                    - yes
+                    - no
+    parameters:
+      - name: authuser_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+
   /user:
     post:
       summary: 회원 가입
@@ -285,7 +315,6 @@ paths:
                   enum:
                     - yes
                     - no
-
 
   /user/{email}:
     get:

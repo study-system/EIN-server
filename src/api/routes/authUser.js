@@ -26,4 +26,19 @@ export default (router) => {
     const data = await userService.listAuthUser(auth, email_check, push_agree, location_id, page, pageSize);
     res.json(data);
   });
+
+  route.put('/authUser/:authuser_id', validateUtil.isAdmin, async (req, res) => {
+    const {
+      authuser_id,
+    } = req.params;
+    const {
+      auth,
+    } = req.body;
+    const success = await userService.auth(authuser_id, auth);
+    if (success) {
+      res.status(204).end();
+    } else {
+      res.status(404).end();
+    }
+  });
 };
