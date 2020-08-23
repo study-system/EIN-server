@@ -1,12 +1,22 @@
 import bcrypt from 'bcrypt';
 import userRepository from '../repositories/userRepository';
 import authService from './authService';
+import Page from '../utils/Page';
 
 const saltRounds = 12;
 
 class UserService {
   constructor(userRepo) {
     this.userRepository = userRepo;
+  }
+
+  async listAuthUser(email_check, push_agree, location_id, page = 1, pageSize = 10) {
+    return Page(
+      await this.userRepository.listAuthUser(email_check, push_agree, location_id, page, pageSize),
+      page,
+      await this.userRepository.size('인증'),
+      pageSize,
+    );
   }
 
   async get(email) {

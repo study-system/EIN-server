@@ -1,5 +1,5 @@
 import express from 'express';
-
+import validateUtil from '../../utils/validateUtil';
 import userService from '../../services/userService';
 
 const route = express.Router();
@@ -17,5 +17,13 @@ export default (router) => {
     } else {
       res.status(400).end();
     }
+  });
+
+  route.get('/authUser', validateUtil.isAdmin, async (req, res) => {
+    const {
+      email_check, push_agree, location_id, pageSize, page,
+    } = req.query;
+    const data = await userService.listAuthUser(email_check, push_agree, location_id, page, pageSize);
+    res.json(data);
   });
 };

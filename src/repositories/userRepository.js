@@ -1,4 +1,5 @@
 import pool from '../loaders/mysqlLoader';
+import sqlSupporter from '../utils/sqlSupporter';
 
 class UserRepository {
   constructor(dbPool) {
@@ -18,6 +19,15 @@ class UserRepository {
   async getSessionInfo(email = '') {
     const [rows] = await this.pool.execute('select id,email,password,role,email_check from user where email=?;', [email]);
     return rows[0];
+  }
+
+  async listAuthUser(email_check, push_agree, location_id, page, pageSize) {
+    const whSql = sqlSupporter.genericAndfilter({
+      role: '인증', location_id, push_agree, email_check,
+    });
+    const limit = sqlSupporter.convertPageToLimit(page, pageSize);
+    const [rows] = await this.pool.execute(`SELECT user.id,name,nickname,email, address, detail_address, email_check, push_agree, phone, company, company_number,website, auth FROM user join auth_user on authuser_id = auth_user.id ${whSql} order by user.id desc LIMIT ?, ?`, limit);
+    return rows;
   }
 
   getInsertUserSql() {
@@ -45,6 +55,11 @@ class UserRepository {
   async authUser(userId = '') {
     const [rows] = await this.pool.execute('');
     return rows;
+  }
+
+  async size(role = '일반') {
+    const [rows] = await this.pool.execute('SELECT COUNT(*) FROM user where role = ?;', [role]);
+    return rows[0]['COUNT(*)'];
   }
 }
 
