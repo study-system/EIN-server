@@ -591,7 +591,7 @@ paths:
           description: "target id(1: 성인, 2: 유아, 3: 청소년)"
           example: "1"
     post:
-      summary: 게시글 생성 (db 필드 imageUrl 필요)
+      summary: 게시글 생성
       tags: [board]
       responses:
         '201':
@@ -619,6 +619,9 @@ paths:
                 content:
                   type: string
                   example: 14박 15일 여름 코딩 캠프~~~ 
+                imageurl:
+                  type: string
+                  example: https://storage.googleapis.com/ein-server.appspot.com/images/1598212683029캡처.PNG
                 location_id:
                   type: integer
                   example: 17
