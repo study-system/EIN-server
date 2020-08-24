@@ -11,6 +11,11 @@ class BoardRepository {
     return rows;
   }
 
+  async getUserId(boardId) {
+    const [row] = await this.pool.execute('SELECT user_id FROM board WHERE id = ?', [boardId]);
+    return row[0];
+  }
+
   async list(auth, location, major, target, page, pageSize) {
     const whSql = sqlSupporter.genericAndfilter({
       auth, 'board.location_id': location, major_id: major, target_id: target, block: 'no',

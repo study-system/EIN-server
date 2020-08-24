@@ -58,6 +58,14 @@ class BoardService {
     return true;
   }
 
+  async verifyOwnBoard(boardId, userId) {
+    const row = await this.boardRepository.getUserId(boardId);
+    if (!!row && (row.user_id === userId)) {
+      return true;
+    }
+    return false;
+  }
+
   async listBoard(authFlag, location, major, target, pageSize = 10, page = 1) {
     return Page(
       await this.boardRepository.list(authFlag, location, major, target, page, pageSize),
@@ -88,8 +96,8 @@ class BoardService {
   }
 
   async verifyOwnComment(commentId, userId) {
-    const id = await this.commentRepository.getUserId(commentId);
-    if (id === userId) {
+    const row = await this.commentRepository.getUserId(commentId);
+    if (!!row && (row.id === userId)) {
       return true;
     }
     return false;

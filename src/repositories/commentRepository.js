@@ -17,7 +17,7 @@ class CommentRepository {
 
   async getUserId(commentId) {
     const [rows] = await this.pool.execute('SELECT user.id FROM study_db.comment JOIN user ON user.id = comment.user_id  where study_db.comment.id= ?', [commentId]);
-    return rows[0].id;
+    return rows[0];
   }
 
   async create(boardId = '', userId = '', content = '') {

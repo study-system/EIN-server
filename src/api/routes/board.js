@@ -46,7 +46,7 @@ export default (router) => {
       }
     });
 
-  route.put('/:boardId', validateUtil.isUser, async (req, res) => {
+  route.put('/:boardId', validateUtil.isUser, validateUtil.isOwnBoard, async (req, res) => {
     const { boardId } = req.params;
     const {
       title, start_date, end_date, content, location_id, major_id, target_id, imageurl,
@@ -70,7 +70,7 @@ export default (router) => {
     res.json(data[0]);
   });
 
-  route.delete('/:boardId', validateUtil.isUser, async (req, res) => {
+  route.delete('/:boardId', validateUtil.isUser, validateUtil.isOwnBoard, async (req, res) => {
     const { boardId } = req.params;
     const success = await boardService.deleteBoard(boardId);
     if (success) {

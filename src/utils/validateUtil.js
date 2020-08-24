@@ -50,6 +50,17 @@ const validateUtil = {
       res.status(401).end();
     }
   },
+
+  isOwnBoard: async (req, res, next) => {
+    const userId = req.user.id;
+    const { boardId } = req.params;
+    const success = await boardService.verifyOwnBoard(boardId, userId);
+    if (success) {
+      next();
+    } else {
+      res.status(401).end();
+    }
+  },
 };
 
 export default validateUtil;
