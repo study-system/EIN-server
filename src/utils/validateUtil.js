@@ -1,3 +1,5 @@
+import boardService from '../services/boardService';
+
 const validateUtil = {
   isAdmin: (req, res, next) => {
     if (!!req.user && req.user.role === '관리자') {
@@ -8,21 +10,19 @@ const validateUtil = {
   },
 
   isAuth: (req, res, next) => {
-    // if (!!req.user && req.user.role === '인증') {
-    //   next();
-    // } else {
-    //   res.status(401).end();
-    // }
-    next();
+    if (!!req.user && req.user.role === '인증') {
+      next();
+    } else {
+      res.status(401).end();
+    }
   },
 
   isUser: (req, res, next) => {
-    // if (!!req.user && (req.user.role === '인증' || req.user.role === '일반' || req.user.role === '관리자')) {
-    //   next();
-    // } else {
-    //   res.status(401).end();
-    // }
-    next();
+    if (!!req.user && (req.user.role === '인증' || req.user.role === '일반' || req.user.role === '관리자')) {
+      next();
+    } else {
+      res.status(401).end();
+    }
   },
 
   boardAuth: (req, res, next) => {
@@ -38,6 +38,17 @@ const validateUtil = {
 
   checkId: (req, res, next) => {
     next();
+  },
+
+  isOwnComment: async (req, res, next) => {
+    const userId = req.user.id;
+    const { commentId } = req.params;
+    const success = await boardService.verifyOwnComment(commentId, userId);
+    if (success) {
+      next();
+    } else {
+      res.status(401).end();
+    }
   },
 };
 

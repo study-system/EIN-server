@@ -88,8 +88,9 @@ export default (router) => {
 
   route.post('/:boardId/comment', validateUtil.isUser, async (req, res) => {
     const { boardId } = req.params;
-    const { user_id, content } = req.body;
-    const success = await boardService.createComment(boardId, user_id, content);
+    const { content } = req.body;
+    const userId = req.user.id;
+    const success = await boardService.createComment(boardId, userId, content);
     if (success) {
       res.status(201).end();
     } else {
@@ -97,7 +98,7 @@ export default (router) => {
     }
   });
 
-  route.put('/:boardId/comment/:commentId', validateUtil.isUser, async (req, res) => {
+  route.put('/:boardId/comment/:commentId', validateUtil.isUser, validateUtil.isOwnComment, async (req, res) => {
     const { commentId } = req.params;
     const { content } = req.body;
     const success = await boardService.putComment(commentId, content);
@@ -108,7 +109,7 @@ export default (router) => {
     }
   });
 
-  route.delete('/:boardId/comment/:commentId', validateUtil.isUser, async (req, res) => {
+  route.delete('/:boardId/comment/:commentId', validateUtil.isUser, validateUtil.isOwnComment, async (req, res) => {
     const { commentId } = req.params;
     const success = await boardService.deleteComment(commentId);
     if (success) {

@@ -87,6 +87,14 @@ class BoardService {
     return true;
   }
 
+  async verifyOwnComment(commentId, userId) {
+    const id = await this.commentRepository.getUserId(commentId);
+    if (id === userId) {
+      return true;
+    }
+    return false;
+  }
+
   async putComment(commentId, comment) {
     const result = await this.commentRepository.put(commentId, comment);
     if (result.affectedRows === 0) {
