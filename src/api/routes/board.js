@@ -48,10 +48,10 @@ export default (router) => {
   route.put('/:boardId', validateUtil.isUser, async (req, res) => {
     const { boardId } = req.params;
     const {
-      title, start_date, end_date, content, location_id, major_id, target_id,
+      title, start_date, end_date, content, location_id, major_id, target_id, imageurl,
     } = req.body;
     const success = await boardService.editBoard(
-      boardId, title, start_date, end_date, content, location_id, major_id, target_id,
+      boardId, title, start_date, end_date, content, location_id, major_id, target_id, imageurl,
     );
     if (success) {
       res.status(204).end();

@@ -40,9 +40,9 @@ class BoardService {
     return true;
   }
 
-  async editBoard(boardId, title, startDate, endDate, content, locationId, majorId, targetId) {
+  async editBoard(boardId, title, startDate, endDate, content, locationId, majorId, targetId, imageUrl) {
     const result = await this.boardRepository.put(
-      boardId, title, startDate, endDate, content, locationId, majorId, targetId,
+      boardId, title, startDate, endDate, content, locationId, majorId, targetId, imageUrl,
     );
     if (result.affectedRows === 0) {
       return false;

@@ -7,7 +7,7 @@ class BoardRepository {
   }
 
   async get(boardId = '') {
-    const [rows] = await this.pool.execute('select title,content,board.location_id,major_id,target_id,user.name as "writer",location.name as "location",start_date,end_date, board.auth from board join user on board.user_id = user.id join location on board.location_id = location.id where board.id=?', [boardId]);
+    const [rows] = await this.pool.execute('select title,content,board.location_id,major_id,target_id,user.name as "writer",location.name as "location",start_date,end_date, imageurl, board.auth from board join user on board.user_id = user.id join location on board.location_id = location.id where board.id=?', [boardId]);
     return rows;
   }
 
@@ -25,8 +25,8 @@ class BoardRepository {
     return rows;
   }
 
-  async put(boardId = '', title = '', startDate = '', endDate = '', content = '', locationId = '', majorId = '', targetId = '') {
-    const [rows] = await this.pool.execute('update board set title = ?, start_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), end_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), content = ?, location_id = ?, major_id = ?, target_id = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, boardId]);
+  async put(boardId = '', title = '', startDate = '', endDate = '', content = '', locationId = '', majorId = '', targetId = '', imageUrl = '') {
+    const [rows] = await this.pool.execute('update board set title = ?, start_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), end_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), content = ?, location_id = ?, major_id = ?, target_id = ?, imageurl = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, imageUrl, boardId]);
     return rows;
   }
 
