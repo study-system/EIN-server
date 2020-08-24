@@ -405,6 +405,9 @@ paths:
                 password:
                   type: string
                   example: 비밀번호
+                newPassword:
+                  type: string
+                  example: 새비밀번호
                 nickname:
                   type: string
                   example: 닉네임

@@ -27,13 +27,13 @@ export default (router) => {
     res.json(data);
   });
 
-  route.put('/:email', roleValidateUtil.isUser, dataValidateUtil.email, async (req, res) => {
+  route.put('/:email', roleValidateUtil.isUser, dataValidateUtil.email, dataValidateUtil.password, async (req, res) => {
     const { email } = req.params;
     const {
-      password, nickname, phone, address, addressDetail, pushAgree, location_id,
+      password, newPassword, nickname, phone, address, addressDetail, pushAgree, location_id,
     } = req.body;
-    console.log(location_id);
-    const success = await userService.update(email, password, nickname, phone, location_id, address, addressDetail, pushAgree);
+    const pw = newPassword || password;
+    const success = await userService.update(email, pw, nickname, phone, location_id, address, addressDetail, pushAgree);
     if (success) {
       res.status(204).end();
     } else {
