@@ -21,12 +21,12 @@ class BoardRepository {
   }
 
   async create(userId = '', title = '', startDate = '', endDate = '', content = '', locationId = '', majorId = '', targetId = '', auth = '') {
-    const [rows] = await this.pool.execute('INSERT INTO study_db.board(user_id,title,start_date,end_date,content,location_id,major_id,target_id,auth) values(?,?,STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"),STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"),?,?,?,?,?)', [userId, title, startDate, endDate, content, locationId, majorId, targetId, auth]);
+    const [rows] = await this.pool.execute('INSERT INTO study_db.board(user_id,title,start_date,end_date,content,location_id,major_id,target_id,auth) values(?,?,STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"),STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"),?,?,?,?,?)', [userId, title, startDate, endDate, content, locationId, majorId, targetId, auth]);
     return rows;
   }
 
   async put(boardId = '', title = '', startDate = '', endDate = '', content = '', locationId = '', majorId = '', targetId = '', imageUrl = '') {
-    const [rows] = await this.pool.execute('update board set title = ?, start_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), end_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.000Z"), content = ?, location_id = ?, major_id = ?, target_id = ?, imageurl = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, imageUrl, boardId]);
+    const [rows] = await this.pool.execute('update board set title = ?, start_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"), end_date = STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"), content = ?, location_id = ?, major_id = ?, target_id = ?, imageurl = ? where id =?', [title, startDate, endDate, content, locationId, majorId, targetId, imageUrl, boardId]);
     return rows;
   }
 

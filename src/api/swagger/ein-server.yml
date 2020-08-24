@@ -622,9 +622,6 @@ paths:
             schema:
               type: object
               properties:
-                user_id:
-                  type: string
-                  example: 1
                 title:
                   type: string
                   example: 여름 코딩 캠프
