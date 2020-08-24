@@ -410,7 +410,10 @@ paths:
                   example: 닉네임
                 phone:
                   type: string
-                  example: 01012345678
+                  example: '01012345678'
+                location_id:
+                  type: string
+                  example: 15
                 address:
                   type: string
                   example: 제주도 특별자치도 제주시 진남로 99길 10
