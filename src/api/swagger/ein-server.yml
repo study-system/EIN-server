@@ -162,8 +162,11 @@ paths:
                           type: boolean
                           example: false
                         push_agree:
-                          type: boolean
-                          example: true
+                          type: string
+                          example: yes
+                          enum:
+                            - yes
+                            - no
                         phone:
                           type: string
                           example: '01012345678'
@@ -424,8 +427,11 @@ paths:
                   type: string
                   example: 101호
                 pushAgree:
-                  type: boolean
-                  example: true
+                  type: string
+                  example: yes
+                  enum:
+                    - yes
+                    - no
     parameters:
       - name: email
         in: path
