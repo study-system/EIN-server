@@ -15,20 +15,25 @@ class AuthService {
     const authKey = uuidv4();
     this.redisClient.set(authKey, email);
     const previewUrl = await this.mailService.sendCheckEmail(email, authKey);
-    this.redisClient.rpush('standbyEmailAuth', previewUrl);
+    this.redisClient.lpush('standbyEmailAuth', previewUrl);
   }
 
   getStandbyEmailAuth(callback) {
     this.redisClient.lrange('standbyEmailAuth', 0, 10, callback);
   }
 
-  authEmail(authKey) {
-    this.redisClient.get(authKey, (error, reply) => {
+  authEmail(authKey, callback) {
+    this.redisClient.get(authKey, async (error, reply) => {
       if (reply != null) {
-        const result = this.userRepository.authEmail(reply);
+        const result = await this.userRepository.authEmail(reply);
         if (result.affectedRows !== 0) {
           this.redisClient.del(authKey);
+          callback(true);
+        } else {
+          callback(false);
         }
+      } else {
+        callback(false);
       }
     });
   }

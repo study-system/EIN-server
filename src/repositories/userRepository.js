@@ -44,8 +44,8 @@ class UserRepository {
     return rows;
   }
 
-  async authEmail(userId = '') {
-    const [rows] = await this.pool.query('');
+  async authEmail(email = '') {
+    const [rows] = await this.pool.query('UPDATE user SET email_check =? WHERE email = ?', ['yes', email]);
     return rows;
   }
 

@@ -12,13 +12,14 @@ export default (router) => {
     });
   });
 
-  route.get('/:authKey', async (req, res) => {
+  route.get('/:authKey', (req, res) => {
     const { authKey } = req.params;
-    const success = await authService.authEmail(authKey);
-    if (success) {
-      res.status(201).send('<h1>인증 되었습니다.</h1>');
-    } else {
-      res.status(400).send('<h1>인증에 실패했습니다.</h1>');
-    }
+    authService.authEmail(authKey, (success) => {
+      if (success) {
+        res.status(201).send('<h1>인증 되었습니다.</h1>');
+      } else {
+        res.status(400).send('<h1>이미 인증되었거나 인증에 실패했습니다.</h1>');
+      }
+    });
   });
 };
