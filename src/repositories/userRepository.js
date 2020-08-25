@@ -22,7 +22,7 @@ class UserRepository {
   }
 
   async getSessionInfo(email = '') {
-    const [rows] = await this.pool.execute('select id,email,password,role,email_check from user where email=?;', [email]);
+    const [rows] = await this.pool.execute('SELECT user.id,email,password,role,email_check,authuser_id,auth FROM user LEFT JOIN auth_user ON user.authuser_id = auth_user.id WHERE email= ?;', [email]);
     return rows[0];
   }
 
