@@ -18,7 +18,6 @@ passport.use('basic', new LocalStrategy(
   },
   async (email, password, done) => {
     const user = await userService.verify(email, password);
-
     if (!user) {
       return done(null, false, { message: 'Incorrect password' });
     }

@@ -33,7 +33,7 @@ class MailService {
       안녕하세요! <br/>
       교육정보 알리미 이메일 인증 메일입니다.  <br/>
       본인이 맞다면 아래 인증 링크를 눌러주세요. <br/>
-      <a href="${host}${authKey}" target="_blank" >이메일 인증</a>`,
+      <a target="_blank" href="${host}${authKey}"  >이메일 인증</a>`,
     });
 
     console.log('Message sent: %s', info.messageId);
