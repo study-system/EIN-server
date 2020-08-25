@@ -29,7 +29,8 @@ const validateUtil = {
     const {
       auth,
     } = req.query;
-    if (auth === 'yes') {
+
+    if (auth === 'yes' && req.user.auth === 'yes') {
       validateUtil.isAuth(req, res, next);
     } else {
       validateUtil.isUser(req, res, next);

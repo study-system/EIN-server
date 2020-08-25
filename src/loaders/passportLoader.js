@@ -29,7 +29,9 @@ passport.use('basic', new LocalStrategy(
       return done(null, false, { message: 'authUser not auth' });
     }
 
-    return done(null, { id: user.id, email: user.email, role: user.role });
+    return done(null, {
+      id: user.id, email: user.email, role: user.role, auth: user.auth,
+    });
   },
 ));
 
