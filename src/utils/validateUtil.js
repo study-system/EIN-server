@@ -28,7 +28,7 @@ const validateUtil = {
   boardAuth: (req, res, next) => {
     const {
       auth,
-    } = req.query;
+    } = req.body;
 
     if (auth === 'yes' && req.user.auth === 'yes') {
       validateUtil.isAuth(req, res, next);
