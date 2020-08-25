@@ -17,6 +17,20 @@ tags:
   - name: push
     description: 푸쉬 알람 관련
 paths:
+  /auth/testEmail:
+    get:
+      description: 회원가입시 이메일 인증 대기중인 사용자 확인용
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: 'http:~~~'
+                      
   /file:
     post:
       tags: [file]

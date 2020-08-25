@@ -23,7 +23,7 @@ class MailService {
     });
   }
 
-  async sendChekEmail(email, authKey) {
+  async sendCheckEmail(email, authKey) {
     const host = config.emailAuthHost;
     const info = await this.transporter.sendMail({
       from: '"교육정보알리미" <admin@equalda.com>', // sender address
@@ -33,15 +33,16 @@ class MailService {
       안녕하세요! <br/>
       교육정보 알리미 이메일 인증 메일입니다.  <br/>
       본인이 맞다면 아래 인증 링크를 눌러주세요. <br/>
-      <a href="${host}${authKey}">이메일 인증</a>`,
+      <a href="${host}${authKey}" target="_blank" >이메일 인증</a>`,
     });
 
     console.log('Message sent: %s', info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
     // Preview only available when sending through an Ethereal account
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    const previewUrl = nodemailer.getTestMessageUrl(info);
+    console.log('Preview URL: %s', previewUrl);
+    return previewUrl;
   }
 }
 

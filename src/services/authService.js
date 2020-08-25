@@ -14,7 +14,12 @@ class AuthService {
   async sendAuthEmail(email) {
     const authKey = uuidv4();
     this.redisClient.set(authKey, email);
-    this.mailService.sendChekEmail(email, authKey);
+    const previewUrl = await this.mailService.sendCheckEmail(email, authKey);
+    this.redisClient.rpush('standbyEmailAuth', previewUrl);
+  }
+
+  getStandbyEmailAuth(callback) {
+    this.redisClient.lrange('standbyEmailAuth', 0, 10, callback);
   }
 
   authEmail(authKey) {
