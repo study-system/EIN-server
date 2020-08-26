@@ -40,8 +40,11 @@ class BoardRepository {
     return rows;
   }
 
-  async size(auth = '') {
-    const [rows] = await this.pool.execute('SELECT COUNT(*) FROM board JOIN user ON board.user_id = user.id where block="no" and auth = ?;', [auth]);
+  async size(auth = '', location, major, target) {
+    const whSql = sqlSupporter.genericAndfilter({
+      auth, block: 'no', 'board.location_id': location, major_id: major, target_id: target,
+    });
+    const [rows] = await this.pool.execute(`SELECT COUNT(*) FROM board JOIN user ON board.user_id = user.id ${whSql}`);
     return rows[0]['COUNT(*)'];
   }
 }

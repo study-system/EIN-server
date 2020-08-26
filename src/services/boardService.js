@@ -70,7 +70,7 @@ class BoardService {
     return Page(
       await this.boardRepository.list(authFlag, location, major, target, page, pageSize),
       page,
-      await this.boardRepository.size(authFlag),
+      await this.boardRepository.size(authFlag, location, major, target),
       pageSize,
     );
   }
