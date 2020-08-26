@@ -41,7 +41,7 @@ class BoardRepository {
   }
 
   async size(auth = '') {
-    const [rows] = await this.pool.execute('SELECT COUNT(*) FROM board where auth = ?;', [auth]);
+    const [rows] = await this.pool.execute('SELECT COUNT(*) FROM board JOIN user ON board.user_id = user.id where block="no" and auth = ?;', [auth]);
     return rows[0]['COUNT(*)'];
   }
 }
