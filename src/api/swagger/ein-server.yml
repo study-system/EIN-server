@@ -358,6 +358,9 @@ paths:
                   phone:
                     type: string
                     example: '01012345678'
+                  location_id:
+                    type: integer
+                    example: 17
                   address:
                     type: string
                     example: 제주도 특별자치도 제주시 진남로 99길 10

@@ -7,7 +7,7 @@ class UserRepository {
   }
 
   async get(email = '') {
-    const [rows] = await this.pool.execute('select email, name,nickname,phone,address,detail_address,role,push_agree,email_check,authuser_id  from user where email=?', [email]);
+    const [rows] = await this.pool.execute('select email, name,nickname,phone,location_id ,address,detail_address,role,push_agree,email_check,authuser_id  from user where email=?', [email]);
     return rows;
   }
 
