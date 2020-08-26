@@ -210,54 +210,54 @@ paths:
                       pageSize:
                         type: integer
                         example: 10
-    parameters:
-      - name: auth
-        in: query
-        required: true
-        schema:
-          type: string
-          example: yes
-          enum:
-            - yes
-            - no
-        description: 인증여부
-      - name: email_check
-        in: query
-        required: true
-        schema:
-          type: string
-          example: yes
-          enum:
-            - yes
-            - no
-        description: 이메일 인증여부
-      - name: push_agree
-        in: query
-        required: true
-        schema:
-          type: string
-          example: yes
-          enum:
-            - yes
-            - no
-        description: 알람 동의 여부
-      - name: page
-        description: 'default: 1'
-        in: query
-        schema:
-          type: integer
-        example: 1
-      - name: pageSize
-        description: 'default: 10'
-        in: query
-        schema:
-          type: integer
-        example: 10
-      - name: location_id
-        in: query
-        schema:
-          type: integer
-        example: 17
+      parameters:
+        - name: auth
+          in: query
+          required: true
+          schema:
+            type: string
+            example: yes
+            enum:
+              - yes
+              - no
+          description: 인증여부
+        - name: email_check
+          in: query
+          required: true
+          schema:
+            type: string
+            example: yes
+            enum:
+              - yes
+              - no
+          description: 이메일 인증여부
+        - name: push_agree
+          in: query
+          required: true
+          schema:
+            type: string
+            example: yes
+            enum:
+              - yes
+              - no
+          description: 알람 동의 여부
+        - name: page
+          description: 'default: 1'
+          in: query
+          schema:
+            type: integer
+          example: 1
+        - name: pageSize
+          description: 'default: 10'
+          in: query
+          schema:
+            type: integer
+          example: 10
+        - name: location_id
+          in: query
+          schema:
+            type: integer
+          example: 17
 
   /authUser/{authuser_id}:
     put:
@@ -584,9 +584,15 @@ paths:
                         title:
                           type: string
                           example: 여름 코딩 캠프
-                        writer:
+                        nickname:
                           type: string
                           example: 강상훈
+                        views:
+                          type: integer
+                          example: 1
+                        likes:
+                          type: integer
+                          example: 1
                   pageInfo:
                     type: object
                     properties:
