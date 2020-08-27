@@ -25,8 +25,8 @@ class BoardRepository {
     return rows;
   }
 
-  async create(userId = '', title = '', startDate = '', endDate = '', content = '', locationId = '', majorId = '', targetId = '', auth = '') {
-    const [rows] = await this.pool.execute('INSERT INTO study_db.board(user_id,title,start_date,end_date,content,location_id,major_id,target_id,auth) values(?,?,STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"),STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"),?,?,?,?,?)', [userId, title, startDate, endDate, content, locationId, majorId, targetId, auth]);
+  async create(userId = '', title = '', startDate = '', endDate = '', content = '', locationId = '', majorId = '', targetId = '', auth = '', imageurl = '') {
+    const [rows] = await this.pool.execute('INSERT INTO study_db.board(user_id,title,start_date,end_date,content,location_id,major_id,target_id,auth,imageurl) values(?,?,STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"),STR_TO_DATE(?,"%Y-%m-%dT%H:%i:%s.%fZ"),?,?,?,?,?,?)', [userId, title, startDate, endDate, content, locationId, majorId, targetId, auth, imageurl]);
     return rows;
   }
 

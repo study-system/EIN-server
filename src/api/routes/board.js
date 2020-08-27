@@ -33,11 +33,11 @@ export default (router) => {
   route.post('/', validateUtil.boardAuth,
     async (req, res) => {
       const {
-        title, start_date, end_date, content, location_id, major_id, target_id, auth,
+        title, start_date, end_date, content, location_id, major_id, target_id, auth, imageurl,
       } = req.body;
       const userId = req.user.id;
       const success = await boardService.createBoard(
-        userId, title, start_date, end_date, content, location_id, major_id, target_id, auth,
+        userId, title, start_date, end_date, content, location_id, major_id, target_id, auth, imageurl,
       );
       if (success) {
         res.status(201).end();

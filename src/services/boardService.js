@@ -29,10 +29,10 @@ class BoardService {
     return list;
   }
 
-  async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId, auth) {
+  async createBoard(userId, title, startDate, endDate, content, locationId, majorId, targetId, auth, imageurl) {
     try {
       await this.boardRepository.create(
-        userId, title, startDate, endDate, content, locationId, majorId, targetId, auth,
+        userId, title, startDate, endDate, content, locationId, majorId, targetId, auth, imageurl,
       );
     } catch (error) {
       return false;
