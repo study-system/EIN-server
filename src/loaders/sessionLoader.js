@@ -10,7 +10,7 @@ export default (app) => {
   app.use(session({
     store: new RedisStore({ client: redisClient }),
     secret: 'SAME_SECRET',
-    saveUninitialized: false,
-    resave: true,
+    saveUninitialized: true,
+    resave: false,
   }));
 };
