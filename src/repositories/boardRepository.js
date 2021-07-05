@@ -21,7 +21,8 @@ class BoardRepository {
       auth, 'board.location_id': location, major_id: major, target_id: target, block: 'no',
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
-    const [rows] = await this.pool.execute(`SELECT board.id,title,views,nickname, count(good.id) as likes FROM board join user on user_id = user.id left join good on board.id = good.board_id ${whSql} group by board.id order by board.id desc LIMIT ?, ?`, limit);
+    const connection = await this.pool.getConnection();
+    const [rows] = await connection.query(`SELECT board.id,title,views,nickname, count(good.id) as likes FROM board join user on user_id = user.id left join good on board.id = good.board_id ${whSql} group by board.id order by board.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 

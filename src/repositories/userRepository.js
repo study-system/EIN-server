@@ -31,7 +31,8 @@ class UserRepository {
       role: '인증', location_id, push_agree, email_check, auth,
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
-    const [rows] = await this.pool.execute(`SELECT user.id, authuser_id, name,nickname,email, address, detail_address, email_check, push_agree, phone, company, company_number,website, auth FROM user join auth_user on authuser_id = auth_user.id ${whSql} order by user.id desc LIMIT ?, ?`, limit);
+    const connection = await this.pool.getConnection();
+    const [rows] = await connection.qury(`SELECT user.id, authuser_id, name,nickname,email, address, detail_address, email_check, push_agree, phone, company, company_number,website, auth FROM user join auth_user on authuser_id = auth_user.id ${whSql} order by user.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 

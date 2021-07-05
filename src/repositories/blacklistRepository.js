@@ -11,7 +11,8 @@ class BlacklistRepository {
       agree: status,
     });
     const limit = sqlSupporter.convertPageToLimit(page, pageSize);
-    const [rows] = await this.pool.execute(`select * from blacklist ${whSql} order by blacklist.id desc LIMIT ?, ?`, limit);
+    const connection = await this.pool.getConnection();
+    const [rows] = await connection.query(`select * from blacklist ${whSql} order by blacklist.id desc LIMIT ?, ?`, limit);
     return rows;
   }
 

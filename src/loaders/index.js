@@ -5,7 +5,7 @@ import sessionLoader from './sessionLoader';
 
 export default (app) => {
   app.use(cors({
-    origin: ['http://myks790.iptime.org:8083'],
+    origin: ['http://myks790.iptime.org:8082', 'http://myks790.iptime.org:8083'],
     credentials: true,
   }));
   sessionLoader(app);
